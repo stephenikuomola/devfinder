@@ -1,0 +1,17 @@
+/* The Props */
+@import "npm:open-props/open-props.min.css";
+
+/* Prop Colors */
+@import "npm:open-props/colors-hsl.min.css";
+
+/* Prop Borders */
+@import "npm:open-props/borders.min.css";
+
+/* Prop Media */
+@import "npm:open-props/media.min.css"; 
+
+/* Prop Z-indexes */
+@import "npm:open-props/zindex.min.css";
+
+/* Prop Fonts */
+@import "npm:open-props/fonts.min.css";
