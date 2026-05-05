@@ -1,16 +1,62 @@
+import css from '@eslint/css'
 import js from '@eslint/js'
-import globals from 'globals'
-import { defineConfig } from 'eslint/config'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import jsdoc from 'eslint-plugin-jsdoc'
+import json from 'eslint-plugin-json'
+import perfectionist from 'eslint-plugin-perfectionist'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from 'globals'
 
 export default defineConfig([
+  globalIgnores(['dist/**', '.parcel-cache/**', 'node_modules/**']),
   {
-    files: ['**/*.{js,mjs,cjs}'],
-    plugins: { js },
     extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser }
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: { globals: globals.browser },
+    plugins: { js },
+    rules: {
+      'no-dupe-args': 'error',
+      'no-dupe-class-members': 'error',
+      'no-dupe-keys': 'error',
+      'no-ex-assign': 'error',
+      'no-magic-numbers': 'error',
+      'no-self-compare': 'error',
+      'no-sparse-arrays': 'error',
+      'no-this-before-super': 'error',
+      'no-unreachable': 'error',
+      'no-useless-assignment': 'error',
+      'no-var': 'error',
+      quotes: ['error', 'single', { allowTemplateLiterals: true }],
+      semi: 'error'
+    }
+  },
+  {
+    extends: ['css/recommended'],
+    files: ['**/*.css'],
+    language: 'css/css',
+    languageOptions: {
+      // @ts-ignore
+      customSyntax: (defaultSyntax) => ({
+        ...defaultSyntax,
+        atRules: {
+          ...defaultSyntax.atRules,
+          'custom-media': {
+            prelude: '<media-query-list>' // what comes after the name
+          }
+        }
+      })
+    },
+    plugins: { css },
+    rules: {
+      'css/prefer-logical-properties': 'error'
+    }
+  },
+  {
+    files: ['**/*.json'],
+    // @ts-ignore
+    plugins: { json },
+    processor: 'json/json'
   },
   jsdoc.configs['flat/recommended'],
   jsdoc.configs['flat/recommended-error'],
@@ -50,6 +96,7 @@ export default defineConfig([
       'jsdoc/valid-types': ['error'] // Recommend
     }
   },
+  perfectionist.configs['recommended-natural'],
   eslintConfigPrettier,
   eslintPluginPrettierRecommended
 ])
