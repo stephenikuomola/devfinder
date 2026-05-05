@@ -4,7 +4,10 @@
   "description": "![Design preview for the GitHub user search app coding challenge](./preview.jpg)",
   "source": "index.html",
   "browserslist": "> 0.3%, last 2 versions, Firefox ESR, not dead",
-  "scripts": {},
+  "scripts": {
+    "lint:prettier": "prettier --write .",
+    "lint": "npx eslint src/*.js"
+  },
   "keywords": [
     "HTML",
     "CSS",
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
     "globals": "^17.6.0",
     "parcel": "^2.16.4",
     "prettier": "3.8.3"
