@@ -11,6 +11,21 @@ import globals from 'globals'
 export default defineConfig([
   globalIgnores(['dist/**', '.parcel-cache/**', 'node_modules/**']),
   {
+    files: ['**/*.{js,mjs,cjs}'],
+    plugins: {
+      perfectionist
+    },
+    rules: {
+      'perfectionist/sort-imports': [
+        'error',
+        {
+          type: 'natural',
+          order: 'asc'
+        }
+      ]
+    }
+  },
+  {
     extends: ['js/recommended'],
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: { globals: globals.browser },
@@ -58,8 +73,14 @@ export default defineConfig([
     plugins: { json },
     processor: 'json/json'
   },
-  jsdoc.configs['flat/recommended'],
-  jsdoc.configs['flat/recommended-error'],
+  {
+    ...jsdoc.configs['flat/recommended'],
+    files: ['**/*.{js,mjs,cjs}']
+  },
+  {
+    ...jsdoc.configs['flat/recommended-error'],
+    files: ['**/*.{js,mjs,cjs}']
+  },
   {
     files: ['**/*.js'],
     rules: {
@@ -96,7 +117,6 @@ export default defineConfig([
       'jsdoc/valid-types': ['error'] // Recommend
     }
   },
-  perfectionist.configs['recommended-natural'],
   eslintConfigPrettier,
   eslintPluginPrettierRecommended
 ])
