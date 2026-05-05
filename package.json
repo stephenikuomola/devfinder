@@ -4,10 +4,20 @@
   "description": "![Design preview for the GitHub user search app coding challenge](./preview.jpg)",
   "main": "index.js",
   "source": "index.html",
-  "scripts": {
-    
-  },
-  "keywords": ["HTML", "CSS", "JavaScript", "Parcel", "GitHub API", "ESLint", "Prettier"],
+  "browserslist": "> 0.3%, last 2 versions, Firefox ESR, not dead",
+  "scripts": {},
+  "keywords": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Parcel",
+    "GitHub API",
+    "ESLint",
+    "Prettier"
+  ],
   "author": "Damilola Ikuomola",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  }
 }
