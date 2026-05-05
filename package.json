@@ -18,6 +18,9 @@
   "author": "Damilola Ikuomola",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.3.0",
+    "globals": "^17.6.0",
     "parcel": "^2.16.4"
   }
 }
