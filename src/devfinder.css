@@ -15,3 +15,215 @@
 
 /* Prop Fonts */
 @import "npm:open-props/fonts.min.css";
+
+:root {
+  /* Colors */
+  --neutral-0: hsl(0, 0%, 100%);
+  --neutral-100: hsl(227, 100%, 98%);
+  --neutral-200: hsl(222, 44%, 70%);
+  --neutral-500: hsl(217, 35%, 45%);
+  --neutral-700: hsl(217, 21%, 21%);
+  --neutral-800: hsl(222, 41%, 20%);
+  --neutral-900: hsl(220, 40%, 13%);
+  --neutral-300: hsl(217, 20%, 51%);
+  --blue-300: hsl(212, 100%, 69%);
+  --blue-500: hsl(212, 100%, 50%);
+  --red-500: hsl(0, 92%, 62%);
+
+  /* Sizes */
+  --size-0: 0;
+  --size-025: 2px;
+  --size-075: 6px;
+  --size-125: 10px;
+  --size-500: 40px;
+
+  /* Display */
+  --hidden: none;
+  --block: block;
+  --inline: inline;
+  --inline-block: inline-block;
+  --flex: flex;
+  --inline-flex: inline-flex;
+  --grid: grid;
+  --inline-grid: inline-grid;
+
+  /* Radius */
+  --radius-0: 0;
+  --radius-7: 4px;
+  --radius-8: 6px;
+  --radius-9: 8px;
+  --radius-10: 10px;
+  --radius-11: 12px;
+  --radius-12: 15px;
+  --radius-13: 20px;
+  --radius-14: 24px;
+  --radius-15: 26px;
+  --radius-16: 28px;
+  --radius-17: 30px;
+  --radius-18: 34px;
+  --radius-19: 36px;
+  --radius-20: 38px;
+  --radius-21: 40px;
+  --radius-full: 999px;
+
+  /* Typography */
+  --ff-space-mono-monospace: "Space Mono", monospace;
+  --ff-space-mono: "Space Mono";
+  --font-size-9: 1.625rem;
+  --font-size-10: 1.375rem;
+  --font-size-11: 1.125rem;
+  --font-size-12: 0.8125rem;
+  --font-size-13: 0.9375rem;
+  --font-lineheight-6: 1.2;
+  --font-lineheight-7: 1.4;
+}
+
+/* Resets */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+  /* eslint-disable-next-line css/use-baseline */
+  text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* eslint-disable-next-line css/use-baseline */
+  text-wrap: balance;
+}
+
+p {
+  /* eslint-disable-next-line css/use-baseline */
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: var(--block);
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+body {
+  inline-size: 100%;
+  min-block-size: 100vb;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  color: inherit;
+  list-style-type: none;
+}
+
+textarea:not([rows]) {
+  min-block-size: 10em;
+}
+
+a:focus,
+button:focus {
+  outline: none;
+}
+
+a:not([class]) {
+  color: currentColor;
+  text-decoration-skip-ink: auto;
+}
+
+:target {
+  scroll-margin-block: 5ex;
+}
+
+.space-mono-regular {
+  font-family: var(--ff-space-mono-monospace);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.space-mono-bold {
+  font-family: var(--ff-space-mono-monospace);
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  /* eslint-disable css/no-important */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* eslint-enable css/no-important */
+}
