@@ -1,48 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Search for Developers on GitHub"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Search for Developers on GitHub" />
 
-  <!-- Favicons -->
-  <link
-  rel="apple-touch-icon"
-  sizes="180x180"
-  href="/assets/favicons/apple-touch-icon.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="32x32"
-  href="/assets/favicons/favicon-32x32.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="16x16"
-  href="/assets/favicons/favicon-16x16.png"
-/>
-<link rel="manifest" href="/assets/favicons/site.webmanifest" />
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/favicons/site.webmanifest" />
 
-  <!-- Font Imports -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Open Graphs  -->
+    <!-- Open Graphs  -->
 
-  <!-- Open Graph Images  -->
+    <!-- Open Graph Images  -->
 
-  <!-- X Card -->
+    <!-- X Card -->
 
-  <!-- CSS Links -->
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="styles.css" />
 
-  <!-- JavaScript Links -->
-  
-  <title>devfinder</title>
-</head>
-<body>
-  Hello, world! My names is Stphen 
-</body>
+    <!-- JavaScript Links -->
+    <script src="script.js" defer></script>
+
+    <title>devfinder</title>
+  </head>
+  <body>
+    <output class="page-loader" id="page-loader">
+      <p class="loader-spinner"></p>
+      <p>Loading devfinder profile...</p>
+    </output>
+    <main class="app is-hidden" aria-live="polite"></main>
+  </body>
 </html>
