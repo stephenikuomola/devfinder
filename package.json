@@ -6,7 +6,8 @@
   "browserslist": "> 0.3%, last 2 versions, Firefox ESR, not dead",
   "scripts": {
     "lint:prettier": "prettier --write .",
-    "lint": "npx eslint src/*.js"
+    "lint": "npx eslint src/*.js",
+    "lint:eslint": "npx eslint --fix ."
   },
   "keywords": [
     "HTML",

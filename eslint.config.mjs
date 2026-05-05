@@ -1,10 +1,9 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import { defineConfig } from 'eslint/config';
-import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import jsdoc from 'eslint-plugin-jsdoc';
-
+import js from '@eslint/js'
+import globals from 'globals'
+import { defineConfig } from 'eslint/config'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import jsdoc from 'eslint-plugin-jsdoc'
 
 export default defineConfig([
   {
@@ -48,7 +47,7 @@ export default defineConfig([
       'jsdoc/require-yields': ['error'], // Recommended
       'jsdoc/require-yields-check': ['error'], // Recommended
       'jsdoc/tag-lines': ['error'], // Recommended
-      'jsdoc/valid-types': ['error'], // Recommend
+      'jsdoc/valid-types': ['error'] // Recommend
     }
   },
   eslintConfigPrettier,
