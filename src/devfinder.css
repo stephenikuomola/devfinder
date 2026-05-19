@@ -21,11 +21,11 @@
   --neutral-0: hsl(0, 0%, 100%);
   --neutral-100: hsl(227, 100%, 98%);
   --neutral-200: hsl(222, 44%, 70%);
+  --neutral-300: hsl(217, 20%, 51%);
   --neutral-500: hsl(217, 35%, 45%);
-  --neutral-700: hsl(217, 21%, 21%);
+  --neutral-700: hsl(219, 21%, 21%);
   --neutral-800: hsl(222, 41%, 20%);
   --neutral-900: hsl(220, 40%, 13%);
-  --neutral-300: hsl(217, 20%, 51%);
   --blue-300: hsl(212, 100%, 69%);
   --blue-500: hsl(212, 100%, 50%);
   --red-500: hsl(0, 92%, 62%);
@@ -91,6 +91,10 @@
 * {
   margin: 0;
   padding: 0;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 *,
@@ -163,6 +167,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--ff-space-mono-monospace);
+  background-color: var(--background-color-body);
+  display: var(--flex);
+  flex-direction: column;
+  gap: var(--size-fluid-4);
+  padding-block-start: var(--size-fluid-4);
 }
 
 button {
@@ -217,6 +226,11 @@ a:not([class]) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* eslint-disable css/no-important */
+  * {
+    transition: none !important;
+  }
+
   html:focus-within {
     scroll-behavior: auto;
   }
@@ -232,6 +246,16 @@ a:not([class]) {
   }
   /* eslint-enable css/no-important */
 }
+
+  @custom-media --mouse (hover) and (pointer: fine);
+
+  @media (--mouse) {
+    button[class="toggle-theme"] {
+      &:is(:hover, :focus-visible) > span {
+        color: var(--hover-mode);
+      }
+    }
+  }
 
 /* Screen Reader Styles */
 .sr-only {
@@ -253,12 +277,41 @@ a:not([class]) {
 /* 3. Consider loading critical theme styles inline to prevent flash of unstyled content */
 /* 4. Use efficient selectors to avoid unnecessary style computation */
 
-/* Dark Theme Styles */
-/* TODO */
-
 /* Light Theme Styles */
-/* TODO */
+[data-theme="light"] {
+  --background-color-body: var(--neutral-100);
+  --background-color-component: var(--neutral-0);
+  --devfinder-name: var(--neutral-700);
+  --devfinder-username: var(--blue-500);
+  --text-placeholder: var(--neutral-500);
+  --text-primary: var(--neutral-500);
+  --numbers: var(--neutral-700);
+  --error-message: var(--red-500);
+  --button: var(--blue-500);
+  --button-hover: var(--blue-300);
+  --outline: var(--blue-500);
+  --hover-mode: var(--neutral-700);
+  --logo: var(--neutral-900);
+  --theme-toggle: var(--neutral-500);
+}
 
+/* Dark Theme Styles */
+[data-theme="dark"] {
+  --background-color-body: var(--neutral-900);
+  --background-color-component: var(--neutral-800);
+  --devfinder-name: var(--neutral-0);
+  --devfinder-username: var(--blue-300);
+  --text-placeholder: var(--neutral-0);
+  --text-primary: var(--neutral-0);
+  --numbers: var(--neutral-0);
+  --error-message: var(--red-500);
+  --button: var(--blue-500);
+  --button-hover: var(--blue-300);
+  --outline: var(--blue-500);
+  --hover-mode: var(--neutral-0);
+  --logo: var(--neutral-0);
+  --theme-toggle: var(--neutral-200);
+}
 
 /* The Loader Styles */
 div[class~="loader"] {
@@ -282,4 +335,54 @@ div[class~="loader"][data-fade~="false"] {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+/* The Header Styles */
+.header {
+  inline-size: min(92%, 45.625rem);
+  margin-inline: auto;
+}
+
+.navigation__header {
+  display: var(--flex);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation__header-logo {
+  font-weight: var(--font-weight-7);
+  font-style: normal;
+  line-height: 1;
+  color: var(--logo);
+  font-size: 1.625rem;
+  letter-spacing: -0.02em;
+}
+
+span[class="color-theme"] {
+  font-style: normal;
+  font-weight: var(--font-weight-7);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.15625rem;
+  color: var(--theme-toggle);
+}
+
+/* On light mode display the moon icon that enables the dark theme */
+span[data-set-theme="dark"] ~ img[class="icon-moon"] {
+  display: inline-block;
+}
+
+span[data-set-theme="light"] ~ img[class="icon-sun"] {
+  display: inline-block;
+}
+
+button[class="toggle-theme"] {
+  display: var(--flex);
+  align-items: center;
+  gap: var(--size-fluid-1);
+}
+
+/* Hide Both button icons by default */
+button[class="toggle-theme"] > img {
+  display: none;
 }
