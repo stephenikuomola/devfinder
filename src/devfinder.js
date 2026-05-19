@@ -44,17 +44,19 @@ class ThemeComponent {
       this.#htmlRootElement.dataset.theme =
         theme === this.#darkTheme ? this.#lightTheme : this.#darkTheme;
 
-      // When the button is click we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
+      // When the button is clicked we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
     } else {
       // If the page has its OS system color theme as "light"
       // We want to add the dark theme
       this.#htmlRootElement.dataset.theme =
         theme === this.#lightTheme ? this.#darkTheme : this.#lightTheme;
 
-      // When the button is click we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
+      // When the button is clicked we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
     }
 
     // Set the theme to the opposite of the current theme, and store the users preference in localStorage.
+    localStorage.setItem('theme', this.#htmlRootElement.dataset.theme);
+    // this.#colorTheme.textContent = this.#htmlRootElement.dataset.theme;
   }
 }
 
