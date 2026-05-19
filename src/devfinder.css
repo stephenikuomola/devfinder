@@ -67,7 +67,7 @@
   --radius-full: 999px;
 
   /* Typography */
-  --ff-space-mono-monospace: "Space Mono", monospace;
+  --ff-space-mono-monospace: var(--ff-space-mono), monospace;
   --ff-space-mono: "Space Mono";
   --font-size-9: 1.625rem;
   --font-size-10: 1.375rem;
@@ -76,6 +76,15 @@
   --font-size-13: 0.9375rem;
   --font-lineheight-6: 1.2;
   --font-lineheight-7: 1.4;
+
+  /* For Screen Readers*/
+  --sr-only-width: 1px;
+  --sr-only-height: 1px;
+  --sr-only-padding: 0px;
+  --sr-only-margin: -1px;
+  --sr-only-border-width: 0;
+  --sr-only-left: -1000px;
+  --sr-only-top: auto;
 }
 
 /* Resets */
@@ -153,6 +162,7 @@ body {
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--ff-space-mono-monospace);
 }
 
 button {
@@ -162,6 +172,7 @@ button {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
+  cursor: pointer;
 }
 
 input,
@@ -169,6 +180,12 @@ button,
 textarea,
 select {
   font: inherit;
+  background: none;
+  border: none;
+}
+
+input {
+  inline-size: 100%;
 }
 
 a {
@@ -199,18 +216,6 @@ a:not([class]) {
   scroll-margin-block: 5ex;
 }
 
-.space-mono-regular {
-  font-family: var(--ff-space-mono-monospace);
-  font-style: normal;
-  font-weight: 400;
-}
-
-.space-mono-bold {
-  font-family: var(--ff-space-mono-monospace);
-  font-style: normal;
-  font-weight: 700;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
@@ -226,4 +231,55 @@ a:not([class]) {
     transition-duration: 0.01ms !important;
   }
   /* eslint-enable css/no-important */
+}
+
+/* Screen Reader Styles */
+.sr-only {
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  inline-size: var(--sr-only-width);
+  block-size: var(--sr-only-height);
+  padding: var(--sr-only-padding);
+  margin: var(--sr-only-margin);
+  border-width: var(--sr-only-border-width);
+  inset-block-start: var(--sr-only-top);
+  inset-inline-start: var(--sr-only-left);
+}
+
+/* Performance tips to keep in mind when implementing prefers-color-scheme */
+/* 1. Use CSS custom properties to avoid code duplication*/
+/* 2. Minimize the number of style recalculation by grouping related properties*/
+/* 3. Consider loading critical theme styles inline to prevent flash of unstyled content */
+/* 4. Use efficient selectors to avoid unnecessary style computation */
+
+/* Dark Theme Styles */
+/* TODO */
+
+/* Light Theme Styles */
+/* TODO */
+
+
+/* The Loader Styles */
+div[class~="loader"] {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  /* eslint css/no-invalid-properties: ["error", { allowUnknownVariables: true }] */
+  z-index: var(--layer-5);
+}
+
+div[class~="loader"][data-fade~="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+div[class~="loader"][data-fade~="false"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }

@@ -24,6 +24,8 @@
   "devDependencies": {
     "@eslint/css": "^1.2.0",
     "@eslint/js": "^10.0.1",
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/transformer-webmanifest": "^2.16.4",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsdoc": "^62.9.0",
@@ -36,5 +38,11 @@
   },
   "dependencies": {
     "open-props": "^1.7.23"
+  }, 
+  "@parcel/transformer-css": {
+    "drafts": {
+      "nesting": true,
+      "customMedia": true
+    }
   }
 }

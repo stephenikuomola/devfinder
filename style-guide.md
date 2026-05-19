@@ -21,6 +21,17 @@ The devfinder app should be responsive across all devices
 --red-500: hsl(0, 92%, 62%);
 ```
 
+## Screen Readers
+```css
+--sr-only-width: 1px; 
+--sr-only-height: 1px; 
+--sr-only-padding: 0px; 
+--sr-only-margin: -1px; 
+--sr-only-border-width: 0; 
+--sr-only-left: -1000px; 
+--sr-only-top: auto;
+```
+
 ## Size
 
 ```css
@@ -109,7 +120,7 @@ The devfinder app should be responsive across all devices
 ```
 
 ```css
---ff-space-mono-monospace: var(--ff-manrope), monospace;
+--ff-space-mono-monospace: var(--ff-space-mono), monospace;
 --ff-space-mono: 'Space Mono';
 --font-size-9: 1.625rem;
 --font-size-10: 1.375rem;
@@ -118,18 +129,6 @@ The devfinder app should be responsive across all devices
 --font-size-13: 0.9375rem;
 --font-lineheight-6: 1.2;
 --font-lineheight-7: 1.4;
-
-.space-mono-regular {
-  font-family: 'Space Mono', monospace;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.space-mono-bold {
-  font-family: 'Space Mono', monospace;
-  font-weight: 700;
-  font-style: normal;
-}
 ```
 
 ## Resets
