@@ -13,10 +13,10 @@ class ThemeComponent {
     document.querySelector('.color-theme')
   );
   #darkTheme = /**@type {string} */ ('dark');
-  #lightTheme = 'light';
+  #lightTheme = /**@type {string} */ ('light');
 
   constructor() {
-    console.log(this.#htmlRootElement, this.#colorTheme);
+    console.log(this.#colorTheme);
     this.#btn?.addEventListener('click', this.#toggleTheme.bind(this));
   }
 
