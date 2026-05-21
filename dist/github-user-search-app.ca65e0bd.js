@@ -207,7 +207,7 @@
       });
     }
   }
-})({"8m8ip":[function(require,module,exports,__globalThis) {
+})({"loDzf":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -215,7 +215,7 @@ var HMR_SERVER_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "14cadd503cc0253d";
+module.bundle.HMR_BUNDLE_ID = "36932d1eca65e0bd";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_SERVER_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -713,44 +713,15 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     }
 }
 
-},{}],"ktMgX":[function(require,module,exports,__globalThis) {
-// Detect the user's preferred color scheme, set the theme accordingly, and store the users preference.
-class ThemeComponent {
-    // Private class fields to store references to the relevant DOM elements and theme values.
-    #preferDarkScheme = /** @type {MediaQueryList}*/ globalThis.matchMedia('(prefers-color-scheme: dark)');
-    #btn = /** @type {HTMLButtonElement } */ document.querySelector('.toggle-theme');
-    #htmlRootElement = /**@type {HTMLElement} */ document.documentElement;
-    #darkTheme = /**@type {string} */ 'dark';
-    #lightTheme = /**@type {string} */ 'light';
-    #prefsKey = /**@type {string} */ 'devfinder-prefs';
-    constructor(){
-        this.#btn?.addEventListener('click', this.#toggleTheme.bind(this));
-    }
-    /**
-   * Toggle the theme between light and dark mode, and store the users preference in localStorage.
-   * @param {Event} evtObj - The click event object passed from the toggle button listener.
-   */ #toggleTheme(evtObj) {
-        // evtObj.target is an EventTarget which may not have `closest`.
-        // Narrow to Element before calling `closest` to satisfy type checks.
-        const targetEl = evtObj.target instanceof Element ? evtObj.target.closest('.toggle-theme') : null;
-        // If the click event is not from the toggle button, do nothing.
-        if (!targetEl?.classList.contains('toggle-theme')) return;
-        let theme = this.#htmlRootElement.dataset.theme;
-        if (this.#preferDarkScheme.matches) // If the page has its OS system color theme as "dark"
-        // We want to add the light theme
-        this.#htmlRootElement.dataset.theme = theme === this.#darkTheme ? this.#lightTheme : this.#darkTheme;
-        else // If the page has its OS system color theme as "light"
-        // We want to add the dark theme
-        this.#htmlRootElement.dataset.theme = theme === this.#lightTheme ? this.#darkTheme : this.#lightTheme;
-        const userPrefs = {
-            theme: this.#htmlRootElement.dataset.theme
-        };
-        // Covert the JavaScript object to a JSON-formatted string and store it in localStorage under the key 'devfinder-prefs'.
-        localStorage.setItem(this.#prefsKey, JSON.stringify(userPrefs));
-    }
-}
-console.log(new ThemeComponent());
+},{}],"llzss":[function(require,module,exports,__globalThis) {
+// Immediately invoked function expression (IIFE) to set the initial theme before the main application logic runs, preventing a flash of unstyled content (FOUC & FOIT).
+(()=>{
+    const themeKey = 'theme';
+    const darkTheme = 'dark';
+    const lightTheme = 'light';
+    console.log('Initializing theme...');
+})();
 
-},{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {})
+},{}]},["loDzf","llzss"], "llzss", "parcelRequire2f59", {})
 
-//# sourceMappingURL=github-user-search-app.3cc0253d.js.map
+//# sourceMappingURL=github-user-search-app.ca65e0bd.js.map

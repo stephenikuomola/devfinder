@@ -280,7 +280,7 @@ a:not([class]) {
 /* Light Theme Styles */
 [data-theme="light"] {
   color-scheme: dark; 
-  
+
   --background-color-body: var(--neutral-100);
   --background-color-component: var(--neutral-0);
   --devfinder-name: var(--neutral-700);
@@ -371,13 +371,22 @@ span[class="color-theme"] {
 }
 
 /* On light mode display the moon icon that enables the dark theme */
-span[data-set-theme="dark"] ~ img[class="icon-moon"] {
+[data-theme="light"] img[class="icon-moon"]{
   display: inline-block;
 }
 
-span[data-set-theme="light"] ~ img[class="icon-sun"] {
+[data-theme="light"] span[data-set-theme="dark"] {
   display: inline-block;
 }
+
+[data-theme="dark"] img[class="icon-sun"] {
+  display: inline-block;
+}
+
+[data-theme="dark"] span[data-set-theme="light"] {
+  display: inline-block;
+}
+
 
 button[class="toggle-theme"] {
   display: var(--flex);
@@ -387,5 +396,10 @@ button[class="toggle-theme"] {
 
 /* Hide Both button icons by default */
 button[class="toggle-theme"] > img {
+  display: none;
+}
+
+/* Hide Both button span text by default*/
+button[class="toggle-theme"] > span {
   display: none;
 }

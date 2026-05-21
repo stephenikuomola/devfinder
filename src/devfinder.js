@@ -8,11 +8,9 @@ class ThemeComponent {
     document.querySelector('.toggle-theme')
   );
   #htmlRootElement = /**@type {HTMLElement} */ (document.documentElement);
-  #colorTheme = /**@type {HTMLSpanElement} */ (
-    document.querySelector('.color-theme')
-  );
   #darkTheme = /**@type {string} */ ('dark');
   #lightTheme = /**@type {string} */ ('light');
+  #prefsKey = /**@type {string} */ ('devfinder-prefs');
 
   constructor() {
     this.#btn?.addEventListener('click', this.#toggleTheme.bind(this));
@@ -40,21 +38,19 @@ class ThemeComponent {
       // We want to add the light theme
       this.#htmlRootElement.dataset.theme =
         theme === this.#darkTheme ? this.#lightTheme : this.#darkTheme;
-
-      // When the button is clicked we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
     } else {
       // If the page has its OS system color theme as "light"
       // We want to add the dark theme
       this.#htmlRootElement.dataset.theme =
         theme === this.#lightTheme ? this.#darkTheme : this.#lightTheme;
-
-      // When the button is clicked we also want to update the color theme data-* attribute and also update the text content to reflect the current theme
     }
 
-    // Set the theme to the opposite of the current theme, and store the users preference in localStorage.
-    localStorage.setItem('theme', this.#htmlRootElement.dataset.theme);
+    const userPrefs = {
+      theme: this.#htmlRootElement.dataset.theme
+    };
 
-    // this.#colorTheme.textContent = this.#htmlRootElement.dataset.theme;
+    // Covert the JavaScript object to a JSON-formatted string and store it in localStorage under the key 'devfinder-prefs'.
+    localStorage.setItem(this.#prefsKey, JSON.stringify(userPrefs));
   }
 }
 
