@@ -1504,7 +1504,11 @@ span[class="color-theme"] {
   line-height: 1.4;
 }
 
-[data-theme="light"] img[class="icon-moon"], [data-theme="light"] span[data-set-theme="dark"], [data-theme="dark"] img[class="icon-sun"], [data-theme="dark"] span[data-set-theme="light"] {
+button[class="toggle-theme"] > :is(img, span) {
+  display: none;
+}
+
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="light"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="dark"]) {
   display: inline-block;
 }
 
@@ -1512,9 +1516,5 @@ button[class="toggle-theme"] {
   display: var(--flex);
   align-items: center;
   gap: var(--size-fluid-1);
-}
-
-button[class="toggle-theme"] > img, button[class="toggle-theme"] > span {
-  display: none;
 }
 /*# sourceMappingURL=github-user-search-app.9b4b9b3c.css.map */

@@ -370,21 +370,20 @@ span[class="color-theme"] {
   color: var(--theme-toggle);
 }
 
-/* On light mode display the moon icon that enables the dark theme */
-[data-theme="light"] img[class="icon-moon"] {
-  display: inline-block;
+/* Hide both the button icons and span text by default 
+ */
+button[class="toggle-theme"] > :is(img, span) {
+  display: none;
 }
 
-[data-theme="light"] span[data-set-theme="dark"] {
-  display: inline-block;
+/* On light mode display the moon icon and the dark text that enables the light theme */
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="light"]) {
+  display:inline-block;
 }
 
-[data-theme="dark"] img[class="icon-sun"] {
-  display: inline-block;
-}
-
-[data-theme="dark"] span[data-set-theme="light"] {
-  display: inline-block;
+/* On dark mode display the sun icon and the light text that enables the dark theme */
+[data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="dark"]) {
+  display:inline-block;
 }
 
 button[class="toggle-theme"] {
@@ -393,12 +392,3 @@ button[class="toggle-theme"] {
   gap: var(--size-fluid-1);
 }
 
-/* Hide Both button icons by default */
-button[class="toggle-theme"] > img {
-  display: none;
-}
-
-/* Hide Both button span text by default*/
-button[class="toggle-theme"] > span {
-  display: none;
-}
