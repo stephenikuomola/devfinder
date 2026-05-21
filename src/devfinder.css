@@ -247,15 +247,15 @@ a:not([class]) {
   /* eslint-enable css/no-important */
 }
 
-  @custom-media --mouse (hover) and (pointer: fine);
+@custom-media --mouse (hover) and (pointer: fine);
 
-  @media (--mouse) {
-    button[class="toggle-theme"] {
-      &:is(:hover, :focus-visible) > span {
-        color: var(--hover-mode);
-      }
+@media (--mouse) {
+  button[class="toggle-theme"] {
+    &:is(:hover, :focus-visible) > span {
+      color: var(--hover-mode);
     }
   }
+}
 
 /* Screen Reader Styles */
 .sr-only {
@@ -279,7 +279,7 @@ a:not([class]) {
 
 /* Light Theme Styles */
 [data-theme="light"] {
-  color-scheme: dark; 
+  color-scheme: dark;
 
   --background-color-body: var(--neutral-100);
   --background-color-component: var(--neutral-0);
@@ -371,7 +371,7 @@ span[class="color-theme"] {
 }
 
 /* On light mode display the moon icon that enables the dark theme */
-[data-theme="light"] img[class="icon-moon"]{
+[data-theme="light"] img[class="icon-moon"] {
   display: inline-block;
 }
 
@@ -386,7 +386,6 @@ span[class="color-theme"] {
 [data-theme="dark"] span[data-set-theme="light"] {
   display: inline-block;
 }
-
 
 button[class="toggle-theme"] {
   display: var(--flex);

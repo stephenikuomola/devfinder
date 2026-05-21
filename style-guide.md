@@ -22,13 +22,14 @@ The devfinder app should be responsive across all devices
 ```
 
 ## Screen Readers
+
 ```css
---sr-only-width: 1px; 
---sr-only-height: 1px; 
---sr-only-padding: 0px; 
---sr-only-margin: -1px; 
---sr-only-border-width: 0; 
---sr-only-left: -1000px; 
+--sr-only-width: 1px;
+--sr-only-height: 1px;
+--sr-only-padding: 0px;
+--sr-only-margin: -1px;
+--sr-only-border-width: 0;
+--sr-only-left: -1000px;
 --sr-only-top: auto;
 ```
 
