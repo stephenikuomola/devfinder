@@ -1398,9 +1398,21 @@ a:not([class]) {
 
 @media (hover) and (pointer: fine) {
   button[class="toggle-theme"] {
+    &:focus-visible {
+      border-radius: var(--radius-7);
+      outline: 3px solid var(--outline);
+      outline-offset: 4px;
+    }
+
     &:is(:hover, :focus-visible) > span {
       color: var(--hover-mode);
     }
+  }
+
+  .navigation__header-logo:focus-visible {
+    border-radius: var(--radius-9);
+    outline: 8px solid var(--outline);
+    outline-offset: 6px;
   }
 }
 
@@ -1508,7 +1520,7 @@ button[class="toggle-theme"] > :is(img, span) {
   display: none;
 }
 
-[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="light"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="dark"]) {
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"]) {
   display: inline-block;
 }
 

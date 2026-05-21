@@ -26,7 +26,7 @@
   --neutral-700: hsl(219, 21%, 21%);
   --neutral-800: hsl(222, 41%, 20%);
   --neutral-900: hsl(220, 40%, 13%);
-  --blue-300: hsl(212, 100%, 69%);
+  --blue-300: #61abff;
   --blue-500: hsl(212, 100%, 50%);
   --red-500: hsl(0, 92%, 62%);
 
@@ -251,9 +251,21 @@ a:not([class]) {
 
 @media (--mouse) {
   button[class="toggle-theme"] {
+    &:is(:focus-visible) {
+      border-radius: var(--radius-7);
+      outline: 3px solid var(--outline);
+      outline-offset: 4px;
+    }
+
     &:is(:hover, :focus-visible) > span {
       color: var(--hover-mode);
     }
+  }
+
+  .navigation__header-logo:is(:focus-visible) {
+    border-radius: var(--radius-9);
+    outline: 8px solid var(--outline);
+    outline-offset: 6px;
   }
 }
 
@@ -377,13 +389,13 @@ button[class="toggle-theme"] > :is(img, span) {
 }
 
 /* On light mode display the moon icon and the dark text that enables the light theme */
-[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="light"]) {
-  display:inline-block;
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"]) {
+  display: inline-block;
 }
 
 /* On dark mode display the sun icon and the light text that enables the dark theme */
-[data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="dark"]) {
-  display:inline-block;
+[data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"]) {
+  display: inline-block;
 }
 
 button[class="toggle-theme"] {
@@ -391,4 +403,3 @@ button[class="toggle-theme"] {
   align-items: center;
   gap: var(--size-fluid-1);
 }
-

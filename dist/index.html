@@ -13,7 +13,7 @@
     <!-- Font Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 
     <!-- Open Graphs  -->
 
@@ -44,7 +44,20 @@
             <img src="/icon-moon.82ae2d4e.svg" alt="dark" class="icon-moon">
           </button>
         </div>
-        <form></form>
+        <search title="Search for GitHub Users" class="navigation__search">
+          <form id="searchForm" class="navigation__search-form" novalidate="">
+            <label for="username" class="sr-only">Search for GitHub Users</label>
+            <input type="search" id="username" name="username" placeholder="Search GitHub username..." autocomplete="off" spellcheck="false">
+            <img src="4a80e4825d4b800b" alt="Search" class="search-icon__dark" aria-hidden="false">
+            <img src="65773469a22843e4" alt="Search" class="search-icon__light" aria-hidden="false">
+            <button type="submit" class="navigation__search-button">
+              Search
+            </button>
+          </form>
+          <!-- The Results messages and not for input validation -->
+          <span id="search-status" role="status" aria-live="polite" class="sr-only"></span>
+          <span id="search-error" role="alert" aria-live="assertive" hidden=""></span>
+        </search>
       </nav>
     </header>
     <main class="app"></main>
