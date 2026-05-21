@@ -248,6 +248,7 @@ a:not([class]) {
 }
 
 @custom-media --mouse (hover) and (pointer: fine);
+@custom-media --md-n-above (width >= 768px);
 
 @media (--mouse) {
   button[class="toggle-theme"] {
@@ -307,6 +308,7 @@ a:not([class]) {
   --hover-mode: var(--neutral-700);
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
+  --box-shadow: 0 16px 30px -10px hsla(227, 46%, 50%, 0.2);
 }
 
 /* Dark Theme Styles */
@@ -326,6 +328,7 @@ a:not([class]) {
   --hover-mode: var(--neutral-0);
   --logo: var(--neutral-0);
   --theme-toggle: var(--neutral-200);
+  --box-shadow: unset;
 }
 
 /* The Loader Styles */
@@ -362,6 +365,7 @@ div[class~="loader"][data-fade~="false"] {
   display: var(--flex);
   align-items: center;
   justify-content: space-between;
+  margin-block-end: var(--size-fluid-4);
 }
 
 .navigation__header-logo {
@@ -391,15 +395,30 @@ button[class="toggle-theme"] > :is(img, span) {
 /* Hide both search icons by default */
 form > img {
   display: none;
+  margin-inline-end: var(--size-2);
+
+  @media (--md-n-above) {
+    margin-inline-end: var(--size-4);
+  }
 }
 
 /* On light mode display the moon icon and the dark text that enables the light theme */
-[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"], img[class="search-icon__light"]) {
+[data-theme="light"]
+  :is(
+    img[class="icon-moon"],
+    span[data-set-theme="dark"],
+    img[class="search-icon__light"]
+  ) {
   display: inline-block;
 }
 
 /* On dark mode display the sun icon and the light text that enables the dark theme */
-[data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"], img[class="search-icon__dark"]) {
+[data-theme="dark"]
+  :is(
+    img[class="icon-sun"],
+    span[data-set-theme="light"],
+    img[class="search-icon__dark"]
+  ) {
   display: inline-block;
 }
 
@@ -407,4 +426,20 @@ button[class="toggle-theme"] {
   display: var(--flex);
   align-items: center;
   gap: var(--size-fluid-1);
+}
+
+/* The form component */
+#searchForm {
+  /* position: relative; */
+  background-color: var(--background-color-component);
+  border-radius: var(--radius-3);
+  box-shadow: var(--box-shadow);
+  display: var(--flex);
+  align-items: center;
+  padding-block: 1.59rem;
+  /* Set the padding-inline for the search form */
+
+  @media (--md-n-above) {
+    padding-block: 1.38rem;
+  }
 }

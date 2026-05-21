@@ -1445,6 +1445,7 @@ a:not([class]) {
   --hover-mode: var(--neutral-700);
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
+  --box-shadow: 0 16px 30px -10px #455eba33;
 }
 
 [data-theme="dark"] {
@@ -1463,6 +1464,7 @@ a:not([class]) {
   --hover-mode: var(--neutral-0);
   --logo: var(--neutral-0);
   --theme-toggle: var(--neutral-200);
+  --box-shadow: unset;
 }
 
 div[class~="loader"] {
@@ -1496,6 +1498,7 @@ div[class~="loader"][data-fade~="false"] {
   display: var(--flex);
   justify-content: space-between;
   align-items: center;
+  margin-block-end: var(--size-fluid-4);
 }
 
 .navigation__header-logo {
@@ -1516,8 +1519,17 @@ span[class="color-theme"] {
   line-height: 1.4;
 }
 
-button[class="toggle-theme"] > :is(img, span), form > img {
+button[class="toggle-theme"] > :is(img, span) {
   display: none;
+}
+
+form > img {
+  margin-inline-end: var(--size-2);
+  display: none;
+
+  @media (width >= 768px) {
+    margin-inline-end: var(--size-4);
+  }
 }
 
 [data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"], img[class="search-icon__light"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"], img[class="search-icon__dark"]) {
@@ -1528,5 +1540,18 @@ button[class="toggle-theme"] {
   display: var(--flex);
   align-items: center;
   gap: var(--size-fluid-1);
+}
+
+#searchForm {
+  background-color: var(--background-color-component);
+  border-radius: var(--radius-3);
+  box-shadow: var(--box-shadow);
+  display: var(--flex);
+  align-items: center;
+  padding-block: 1.59rem;
+
+  @media (width >= 768px) {
+    padding-block: 1.38rem;
+  }
 }
 /*# sourceMappingURL=github-user-search-app.9b4b9b3c.css.map */
