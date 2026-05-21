@@ -279,6 +279,8 @@ a:not([class]) {
 
 /* Light Theme Styles */
 [data-theme="light"] {
+  color-scheme: dark; 
+  
   --background-color-body: var(--neutral-100);
   --background-color-component: var(--neutral-0);
   --devfinder-name: var(--neutral-700);
@@ -297,6 +299,7 @@ a:not([class]) {
 
 /* Dark Theme Styles */
 [data-theme="dark"] {
+  color-scheme: dark;
   --background-color-body: var(--neutral-900);
   --background-color-component: var(--neutral-800);
   --devfinder-name: var(--neutral-0);

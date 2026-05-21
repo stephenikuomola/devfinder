@@ -1,7 +1,6 @@
 // Detect the user's preferred color scheme, set the theme accordingly, and store the users preference.
 class ThemeComponent {
-  // Detect the users current theme
-  #currentTheme = /**@type {string | null}*/ (localStorage.getItem('theme'));
+  // Private class fields to store references to the relevant DOM elements and theme values.
   #preferDarkScheme = /** @type {MediaQueryList}*/ (
     globalThis.matchMedia('(prefers-color-scheme: dark)')
   );
@@ -16,7 +15,6 @@ class ThemeComponent {
   #lightTheme = /**@type {string} */ ('light');
 
   constructor() {
-    console.log(this.#colorTheme);
     this.#btn?.addEventListener('click', this.#toggleTheme.bind(this));
   }
 
@@ -31,7 +29,6 @@ class ThemeComponent {
       evtObj.target instanceof Element
         ? evtObj.target.closest('.toggle-theme')
         : null;
-    console.log(targetEl);
 
     // If the click event is not from the toggle button, do nothing.
     if (!targetEl?.classList.contains('toggle-theme')) return;
@@ -56,6 +53,7 @@ class ThemeComponent {
 
     // Set the theme to the opposite of the current theme, and store the users preference in localStorage.
     localStorage.setItem('theme', this.#htmlRootElement.dataset.theme);
+
     // this.#colorTheme.textContent = this.#htmlRootElement.dataset.theme;
   }
 }
