@@ -1516,11 +1516,11 @@ span[class="color-theme"] {
   line-height: 1.4;
 }
 
-button[class="toggle-theme"] > :is(img, span) {
+button[class="toggle-theme"] > :is(img, span), form > img {
   display: none;
 }
 
-[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"]) {
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"], img[class="search-icon__light"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"], img[class="search-icon__dark"]) {
   display: inline-block;
 }
 
