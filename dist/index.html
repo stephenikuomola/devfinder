@@ -40,14 +40,14 @@
           <button class="toggle-theme" aria-label="Toggle Theme" type="button">
             <span class="color-theme" data-set-theme="light">LIGHT</span>
             <span class="color-theme" data-set-theme="dark">DARK</span>
-            <img src="/icon-sun.f381ac43.svg" alt="light" class="icon-sun">
-            <img src="/icon-moon.82ae2d4e.svg" alt="dark" class="icon-moon">
+            <img src="/icon-sun.f381ac43.svg" alt="light" class="icon-sun" width="20" height="20">
+            <img src="/icon-moon.82ae2d4e.svg" alt="dark" class="icon-moon" width="20" height="20">
           </button>
         </div>
         <search title="Search for GitHub Users" class="navigation__search">
           <form id="searchForm" class="navigation__search-form" novalidate="">
-            <img src="/icon-search-dark.173ea204.svg" alt="Search" class="search-icon__dark" aria-hidden="false">
-            <img src="/icon-search-light.32b1f159.svg" alt="Search" class="search-icon__light" aria-hidden="false">
+            <img src="/icon-search-dark.173ea204.svg" alt="" class="search-icon__dark" aria-hidden="true" width="25" height="24">
+            <img src="/icon-search-light.32b1f159.svg" alt="" class="search-icon__light" aria-hidden="true" width="25" height="24">
             <label for="username" class="sr-only">Search for GitHub Users</label>
             <input type="search" id="username" name="username" placeholder="Search GitHub username..." autocomplete="off" spellcheck="false">
             <button type="submit" class="navigation__search-button">
@@ -55,12 +55,72 @@
             </button>
           </form>
           <!-- The Results messages and not for input validation -->
-          <span id="search-status" role="status" aria-live="polite" class="sr-only"></span>
-          <span id="search-error" role="alert" aria-live="assertive" hidden=""></span>
+          <span id="search-error" role="alert" aria-live="assertive" aria-hidden="false" data-error="No result"></span>
         </search>
       </nav>
     </header>
-    <main class="app"></main>
+    <main class="app-profile">
+      <div class="app-profile__img">
+        <img src="/preview.0e2a6539.jpg" alt="Octocat's avatar" class="app-profile__img-placeholder">
+      </div>
+      <div class="app-profile__information">
+        <section class="app-profile__information-header" aria-labelledby="profile-heading">
+          <h1 id="profile-heading" class="sr-only">Profile</h1>
+          <!-- name, username, join date -->
+          <div class="user-profile">
+            <p class="user-profile__name"></p>
+            <p class="user-profile__username"></p>
+          </div>
+          <p class="join-date">Joined 25 Jan 2021</p>
+        </section>
+
+        <section class="app-profile__information-bio" aria-labelledby="bio-heading">
+          <h2 id="bio-heading" class="sr-only">Bio</h2>
+          <p>This profile has no bio</p>
+        </section>
+
+        <section class="app-profile__information-stats" aria-labelledby="stats-heading">
+          <h2 id="stats-heading" class="sr-only">Stats</h2>
+          <!-- repos, followers, following -->
+          <ul class="user-stats">
+            <li class="user-stats__repos">
+              <span>Repos</span>
+              <span>8</span>
+            </li>
+            <li class="user-stats__followers">
+              <span>Followers</span>
+              <span>3938</span>
+            </li>
+            <li class="user-stats__following">
+              <span>Following</span>
+              <span>9</span>
+            </li>
+          </ul>
+        </section>
+        <section class="app-profile__information-links" aria-labelledby="links-heading">
+          <h2 id="links-heading" class="sr-only">Links</h2>
+          <!-- location, website, twitter, company -->
+          <ul class="user-links">
+            <li class="user-links__location">
+              <img alt="" aria-hidden="true" src="/icon-location-dark.ba1768e7.svg" width="14" height="20">
+              <span>San Francisco</span>
+            </li>
+            <li class="user-links__social-media">
+              <img alt="" aria-hidden="true" src="/icon-x-dark.0c7f72b5.svg" width="20" height="20">
+              <span class="fade_no-social-media">Not Available</span>
+            </li>
+            <li class="user-links__portfolio">
+              <img alt="" aria-hidden="true" src="/icon-website-dark.57962e4e.svg" width="20" height="20">
+              <a href="#"> https://github.blog </a>
+            </li>
+            <li class="user-links__company">
+              <img alt="" aria-hidden="true" src="/icon-company-dark.f20b1250.svg" width="20" height="20">
+              <span>@github</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
   
 
 </body></html>

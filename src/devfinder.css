@@ -32,10 +32,23 @@
 
   /* Sizes */
   --size-0: 0;
-  --size-025: 2px;
-  --size-075: 6px;
-  --size-125: 10px;
-  --size-500: 40px;
+  --size-025: calc(2 / 16 * 1rem);
+  --size-05: calc(4 / 16 * 1rem);
+  --size-075: calc(6 / 16 * 1rem);
+  --size-100: calc(8 / 16 * 1rem);
+  --size-125: calc(10 / 16 * 1rem);
+  --size-130: calc(10.5 / 16 * 1rem);
+  --size-150: calc(12 / 16 * 1rem);
+  --size-200: calc(16 / 16 * 1rem);
+  --size-250: calc(20 / 16 * 1rem);
+  --size-220: calc(22.08 / 16 * 1rem);
+  --size-254: calc(25.44 / 16 * 1rem);
+  --size-300: calc(24 / 16 * 1rem);
+  --size-400: calc(32 / 16 * 1rem);
+  --size-500: calc(40 / 16 * 1rem);
+  --size-600: calc(48 / 16 * 1rem);
+  --size-800: calc(64 / 16 * 1rem);
+  --size-1000: calc(80 / 16 * 1rem);
 
   /* Display */
   --hidden: none;
@@ -195,6 +208,8 @@ select {
 
 input {
   inline-size: 100%;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 a {
@@ -212,7 +227,8 @@ textarea:not([rows]) {
 }
 
 a:focus,
-button:focus {
+button:focus,
+input:focus {
   outline: none;
 }
 
@@ -254,8 +270,8 @@ a:not([class]) {
   button[class="toggle-theme"] {
     &:is(:focus-visible) {
       border-radius: var(--radius-7);
-      outline: 3px solid var(--outline);
-      outline-offset: 4px;
+      outline: 2px solid var(--outline);
+      outline-offset: var(--size-px-1);
     }
 
     &:is(:hover, :focus-visible) > span {
@@ -266,7 +282,23 @@ a:not([class]) {
   .navigation__header-logo:is(:focus-visible) {
     border-radius: var(--radius-9);
     outline: 8px solid var(--outline);
-    outline-offset: 6px;
+    outline-offset: var(--size-075);
+  }
+
+  .navigation__search-button:is(:hover) {
+    background-color: var(--button-hover);
+  }
+
+  #searchForm {
+    &:has(:focus-visible) {
+      outline: 2px solid var(--outline);
+      outline-offset: var(--size-px-1);
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--outline);
+      outline-offset: var(--size-px-1);
+    }
   }
 }
 
@@ -286,7 +318,7 @@ a:not([class]) {
 
 /* Performance tips to keep in mind when implementing prefers-color-scheme */
 /* 1. Use CSS custom properties to avoid code duplication*/
-/* 2. Minimize the number of style recalculation by grouping related properties*/
+/* 2. Minimize the number of style recalculation by grouping related elements*/
 /* 3. Consider loading critical theme styles inline to prevent flash of unstyled content */
 /* 4. Use efficient selectors to avoid unnecessary style computation */
 
@@ -314,6 +346,7 @@ a:not([class]) {
 /* Dark Theme Styles */
 [data-theme="dark"] {
   color-scheme: dark;
+
   --background-color-body: var(--neutral-900);
   --background-color-component: var(--neutral-800);
   --devfinder-name: var(--neutral-0);
@@ -335,7 +368,7 @@ a:not([class]) {
 div[class~="loader"] {
   position: fixed;
   inset: 0;
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   background-color: transparent;
@@ -371,17 +404,17 @@ div[class~="loader"][data-fade~="false"] {
 .navigation__header-logo {
   font-weight: var(--font-weight-7);
   font-style: normal;
-  line-height: 1;
+  line-height: calc(100 / 100);
   color: var(--logo);
-  font-size: 1.625rem;
+  font-size: var(--font-size-9);
   letter-spacing: -0.02em;
 }
 
 span[class="color-theme"] {
   font-style: normal;
   font-weight: var(--font-weight-7);
-  font-size: 0.8125rem;
-  line-height: 1.4;
+  font-size: var(--font-size-12);
+  line-height: calc(140 / 100);
   letter-spacing: 0.15625rem;
   color: var(--theme-toggle);
 }
@@ -389,7 +422,7 @@ span[class="color-theme"] {
 /* Hide both the button icons and span text by default 
  */
 button[class="toggle-theme"] > :is(img, span) {
-  display: none;
+  display: var(--hidden);
 }
 
 /* Hide both search icons by default */
@@ -409,7 +442,7 @@ form > img {
     span[data-set-theme="dark"],
     img[class="search-icon__light"]
   ) {
-  display: inline-block;
+  display: var(--inline-block);
 }
 
 /* On dark mode display the sun icon and the light text that enables the dark theme */
@@ -419,7 +452,7 @@ form > img {
     span[data-set-theme="light"],
     img[class="search-icon__dark"]
   ) {
-  display: inline-block;
+  display: var(--inline-block);
 }
 
 button[class="toggle-theme"] {
@@ -430,16 +463,88 @@ button[class="toggle-theme"] {
 
 /* The form component */
 #searchForm {
-  /* position: relative; */
   background-color: var(--background-color-component);
   border-radius: var(--radius-3);
   box-shadow: var(--box-shadow);
   display: var(--flex);
   align-items: center;
-  padding-block: 1.59rem;
-  /* Set the padding-inline for the search form */
+  padding-block: var(--size-130);
+  padding-inline-end: var(--size-150);
+  padding-inline-start: var(--size-150);
 
   @media (--md-n-above) {
-    padding-block: 1.38rem;
+    padding-block: var(--size-220);
+    padding-inline-start: var(--size-300);
+  }
+}
+
+/* Remove the built-in clear (x) button + decoration */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: var(--hidden);
+}
+
+/*  Remove the Edge/IE clear button  */
+input[type="search"]::-ms-clear,
+input[type="search"]::-ms-reveal {
+  display: var(--hidden);
+  inline-size: 0;
+  block-size: 0;
+}
+
+/* Style the search input placeholder */
+input::placeholder {
+  color: var(--text-placeholder);
+  font-style: normal;
+  font-weight: var(--font-weight-4);
+  font-size: calc(11 / 16 * 1rem);
+  line-height: calc(140 / 100);
+  opacity: 0.7;
+
+  @media (--md-n-above) {
+    font-size: var(--font-size-11);
+  }
+}
+
+.navigation__search {
+  position: relative;
+}
+
+/* Style the "search" button */
+.navigation__search-button {
+  background-color: var(--blue-500);
+  font-style: normal;
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-7);
+  line-height: var(--font-lineheight-3);
+  border-radius: var(--radius-10);
+  padding-block: var(--size-150);
+  padding-inline: var(--size-250);
+
+  @media (--md-n-above) {
+    padding-inline: var(--size-300);
+  }
+}
+
+/* Error Message */
+span[aria-hidden="true"] {
+  display: var(--hidden);
+}
+
+span[aria-hidden="false"] {
+  font-size: var(--font-size-fluid-0);
+  font-style: normal;
+  font-weight: var(--font-weight-7);
+  line-height: var(--font-lineheight-3);
+  color: var(--error-message);
+  position: absolute;
+  right: calc(15 / 16 * 1rem);
+  top: calc(75 / 16 * 1rem);
+
+  @media (--md-n-above) {
+    right: calc(150 / 16 * 1rem);
+    top: calc(34 / 16 * 1rem);
   }
 }
