@@ -389,7 +389,7 @@ div[class~="loader"][data-fade~="false"] {
 }
 
 /* The Header Styles */
-.header {
+.header, .app {
   inline-size: min(92%, 45.625rem);
   margin-inline: auto;
 }
@@ -547,4 +547,44 @@ span[aria-hidden="false"] {
     right: calc(150 / 16 * 1rem);
     top: calc(34 / 16 * 1rem);
   }
+}
+
+/* Search success: styles for the populated GitHub user profile */
+.app-profile {
+  display: var(--flex);
+  gap: var(--size-fluid-3);
+  flex-direction: column;
+  position: relative; 
+  padding-inline: var(--size-300);
+  /* TODO */
+  /* Set the padding block start*/
+  /* Revise the inset property */
+  /* Implement the style on the element with class 'fade_not-available' */
+  
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    /* Unset the position property when user is on desktop */
+    position: unset;
+  }
+}
+
+.app-profile__img-placeholder {
+  inline-size: calc(70 / 16 * 1rem);
+  block-size: calc(70 / 16 * 1rem);
+  border-radius: 50%; 
+
+  @media (--md-n-above) {
+    inline-size: calc(117 / 16 * 1rem);
+    block-size: calc(117 / 16 * 1rem);
+  }
+}
+
+.app-profile__information-header {
+  position: absolute;
+  right: 0;
+  top:0;
+
+  /* TODO  */
+  /* Unset the position property when it is on table device */
 }

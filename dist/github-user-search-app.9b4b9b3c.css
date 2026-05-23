@@ -1514,7 +1514,7 @@ div[class~="loader"][data-fade~="false"] {
   pointer-events: auto;
 }
 
-.header {
+.header, .app {
   inline-size: min(92%, 45.625rem);
   margin-inline: auto;
 }
@@ -1661,5 +1661,35 @@ span[aria-hidden="false"] {
     top: 2.125rem;
     right: 9.375rem;
   }
+}
+
+.app-profile {
+  display: var(--flex);
+  gap: var(--size-fluid-3);
+  padding-inline: var(--size-300);
+  flex-direction: column;
+  position: relative;
+
+  @media (width >= 768px) {
+    position: unset;
+    flex-direction: row;
+  }
+}
+
+.app-profile__img-placeholder {
+  border-radius: 50%;
+  block-size: 4.375rem;
+  inline-size: 4.375rem;
+
+  @media (width >= 768px) {
+    block-size: 7.3125rem;
+    inline-size: 7.3125rem;
+  }
+}
+
+.app-profile__information-header {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 /*# sourceMappingURL=github-user-search-app.9b4b9b3c.css.map */
