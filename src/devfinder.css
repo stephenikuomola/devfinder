@@ -435,7 +435,7 @@ form > img {
   }
 }
 
-/* On light mode display the moon icon and the dark text that enables the light theme */
+/* On light mode display the moon icon and the dark text that enables the dark theme */
 [data-theme="light"]
   :is(
     img[class="icon-moon"],
@@ -445,7 +445,7 @@ form > img {
   display: var(--inline-block);
 }
 
-/* On dark mode display the sun icon and the light text that enables the dark theme */
+/* On dark mode display the sun icon and the light text that enables the light theme */
 [data-theme="dark"]
   :is(
     img[class="icon-sun"],
