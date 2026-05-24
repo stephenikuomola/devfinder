@@ -110,6 +110,13 @@
     border-color 0.3s ease;
 }
 
+*::after,
+*::before {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
 *,
 *::before,
 *::after {
@@ -117,7 +124,7 @@
 }
 
 html {
-  overflow: hidden;
+  overflow-x: hidden;
   /* eslint-disable-next-line css/use-baseline */
   text-size-adjust: none;
   -moz-text-size-adjust: none;
@@ -279,6 +286,11 @@ a:not([class]) {
     }
   }
 
+  .link-content > span:is(:hover)::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
   .navigation__header-logo:is(:focus-visible) {
     border-radius: var(--radius-9);
     outline: 8px solid var(--outline);
@@ -293,12 +305,18 @@ a:not([class]) {
     &:has(:focus-visible) {
       outline: 2px solid var(--outline);
       outline-offset: var(--size-px-1);
-    }
 
-    button:focus-visible {
-      outline: 2px solid var(--outline);
-      outline-offset: var(--size-px-1);
+      button {
+        outline: 2px solid var(--outline);
+        outline-offset: var(--size-px-1);
+      }
     }
+  }
+
+  .user-links > li:has(:focus-visible) {
+    border-radius: var(--radius-7);
+    outline: 2px solid var(--outline);
+    outline-offset: var(--size-px-1);
   }
 }
 
@@ -389,7 +407,8 @@ div[class~="loader"][data-fade~="false"] {
 }
 
 /* The Header Styles */
-.header, .app {
+.header,
+.app {
   inline-size: min(92%, 45.625rem);
   margin-inline: auto;
 }
@@ -427,7 +446,7 @@ button[class="toggle-theme"] > :is(img, span) {
 
 /* Hide both search icons by default */
 form > img {
-  display: none;
+  display: var(--hidden);
   margin-inline-end: var(--size-2);
 
   @media (--md-n-above) {
@@ -440,7 +459,8 @@ form > img {
   :is(
     img[class="icon-moon"],
     span[data-set-theme="dark"],
-    img[class="search-icon__light"]
+    img[class="search-icon__light"],
+    img[data-link-icon-theme="dark"]
   ) {
   display: var(--inline-block);
 }
@@ -450,7 +470,8 @@ form > img {
   :is(
     img[class="icon-sun"],
     span[data-set-theme="light"],
-    img[class="search-icon__dark"]
+    img[class="search-icon__dark"],
+    img[data-link-icon-theme="light"]
   ) {
   display: var(--inline-block);
 }
@@ -549,30 +570,38 @@ span[aria-hidden="false"] {
   }
 }
 
+.app {
+  background-color: var(--background-color-component);
+  border-radius: var(--radius-3);
+  box-shadow: var(--box-shadow);
+  margin-block-end: calc(96.96 / 16 * 1rem);
+}
+
 /* Search success: styles for the populated GitHub user profile */
 .app-profile {
   display: var(--flex);
   gap: var(--size-fluid-3);
   flex-direction: column;
-  position: relative; 
+  position: relative;
   padding-inline: var(--size-300);
-  /* TODO */
-  /* Set the padding block start*/
-  /* Revise the inset property */
-  /* Implement the style on the element with class 'fade_not-available' */
-  
+  padding-block-start: var(--size-fluid-4);
 
   @media (--md-n-above) {
     flex-direction: row;
     /* Unset the position property when user is on desktop */
     position: unset;
+    padding-inline: var(--size-fluid-4);
+
+    .app-profile__img {
+      flex-basis: 25%;
+    }
   }
 }
 
 .app-profile__img-placeholder {
   inline-size: calc(70 / 16 * 1rem);
   block-size: calc(70 / 16 * 1rem);
-  border-radius: 50%; 
+  border-radius: 50%;
 
   @media (--md-n-above) {
     inline-size: calc(117 / 16 * 1rem);
@@ -582,9 +611,155 @@ span[aria-hidden="false"] {
 
 .app-profile__information-header {
   position: absolute;
-  right: 0;
-  top:0;
+  inset: calc(33 / 16 * 1rem)
+    clamp(0rem, calc((100vw - 320px) * 420 / 447), 26.25rem) auto auto;
 
   /* TODO  */
   /* Unset the position property when it is on table device */
+  @media (--md-n-above) {
+    position: unset;
+    inset: unset;
+    display: var(--flex);
+    justify-content: space-between;
+  }
+}
+
+.user-profile__name {
+  color: var(--devfinder-name);
+  font-size: var(--font-size-9);
+  font-style: normal;
+  line-height: calc(120 / 100);
+  font-weight: var(--font-weight-7);
+}
+
+.user-profile__username {
+  color: var(--devfinder-username);
+  font-size: var(--font-size-1);
+  line-height: calc(150 / 100);
+  font-style: normal;
+  font-weight: var(--font-weight-4);
+}
+
+/* The user stats */
+.app-profile__information-stats {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-10);
+  margin-block-end: var(--size-300);
+  background-color: var(--background-color-body);
+
+  @media (--md-n-above) {
+    padding-inline: var(--size-7);
+    padding-block: calc(15.04 / 16 * 1rem);
+  }
+}
+
+.user-stats {
+  display: var(--flex);
+  flex-direction: column;
+  gap: var(--size-200);
+
+  @media(--md-n-above) {
+    flex-direction: row;
+    gap: unset;
+    
+    * {
+      flex: 1; /* same as flex: 1 1 0% */
+      min-inline-size: 0;
+    }
+  }
+}
+
+li[class^="user-stats__"] > p > span {
+  display: var(--block);
+  font-style: normal;
+
+  &:first-child {
+    margin-block-end: var(--size-05);
+    font-size: var(--font-size-12);
+    line-height: var(--font-lineheight-3);
+    font-weight: var(--font-weight-4);
+    color: var(--text-primary);
+  }
+
+  &:last-child {
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-7);
+    line-height: calc(140 / 100);
+    color: var(--numbers);
+  }
+}
+
+/* The links */
+.app-profile__information-links {
+  margin-block-end: var(--size-fluid-4);
+}
+
+.user-links {
+  display: var(--flex);
+  flex-direction: column;
+  gap: var(--size-3);
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    * {
+      flex-basis: calc(50% - 1rem);
+      flex-grow: 1;
+    }
+  }
+}
+
+.user-links img {
+  display: var(--hidden);
+}
+
+li[class^="user-links__"] {
+  display: var(--flex);
+  gap: var(--size-3);
+  align-items: center;
+
+  @media (--md-n-above) {
+    & > img {
+      flex: 0 1 0; /* which is the same as flex-shrink: 1; flex-grow: 0; flex-basis: 0 */
+    }
+
+  }
+}
+
+.join-date,
+.fade_not-available,
+.bio-content,
+.location-content,
+.link-content {
+  color: var(--text-primary);
+  font-size: var(--font-size-13);
+  line-height: calc(150 / 100);
+  font-style: normal;
+  font-weight: var(--font-weight-4);
+}
+
+.link-content > span {
+  position: relative;
+}
+
+.link-content > span::after {
+  content: "";
+  position: absolute;
+  /* inset: top right bottom left */
+  inset: auto 0 4px 0;
+  background-color: currentColor;
+  height: 0.01em;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.fade_not-available {
+  opacity: 0.75;
+}
+
+.app-profile__information-bio {
+  margin-block: var(--size-5);
 }
