@@ -1280,6 +1280,7 @@
   --font-size-13: .9375rem;
   --font-lineheight-6: 1.2;
   --font-lineheight-7: 1.4;
+  --font-lineheight-8: 1;
   --sr-only-width: 1px;
   --sr-only-height: 1px;
   --sr-only-padding: 0px;
@@ -1491,6 +1492,8 @@ a:not([class]) {
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
   --box-shadow: 0 16px 30px -10px #455eba33;
+  --no-results-found-summary: var(--neutral-700);
+  --no-results-found-text: var(--neutral-300);
 }
 
 [data-theme="dark"] {
@@ -1510,6 +1513,8 @@ a:not([class]) {
   --logo: var(--neutral-0);
   --theme-toggle: var(--neutral-200);
   --box-shadow: unset;
+  --no-results-found-summary: var(--neutral-0);
+  --no-results-found-text: var(--neutral-200);
 }
 
 div[class~="loader"] {
@@ -1548,9 +1553,9 @@ div[class~="loader"][data-fade~="false"] {
 
 .navigation__header-logo {
   font-weight: var(--font-weight-7);
-  color: var(--logo);
   font-style: normal;
-  line-height: 1;
+  line-height: var(--font-lineheight-8);
+  color: var(--logo);
   font-size: var(--font-size-9);
   letter-spacing: -.02em;
 }
@@ -1559,9 +1564,9 @@ span[class="color-theme"] {
   font-style: normal;
   font-weight: var(--font-weight-7);
   font-size: var(--font-size-12);
+  line-height: var(--font-lineheight-7);
   letter-spacing: .15625rem;
   color: var(--theme-toggle);
-  line-height: 1.4;
 }
 
 button[class="toggle-theme"] > :is(img, span) {
@@ -1635,9 +1640,9 @@ input::placeholder {
   color: var(--text-placeholder);
   font-style: normal;
   font-weight: var(--font-weight-4);
-  opacity: .7;
   font-size: .6875rem;
-  line-height: 1.4;
+  line-height: var(--font-lineheight-7);
+  opacity: .7;
 
   @media (width >= 768px) {
     font-size: var(--font-size-11);
@@ -1693,7 +1698,7 @@ span[aria-hidden="false"] {
 .app-profile {
   display: var(--flex);
   gap: var(--size-fluid-3);
-  padding-inline: var(--size-300);
+  padding-inline: var(--size-8);
   flex-direction: column;
   padding-block-start: var(--size-fluid-4);
   position: relative;
@@ -1736,15 +1741,15 @@ span[aria-hidden="false"] {
   color: var(--devfinder-name);
   font-size: var(--font-size-9);
   font-style: normal;
-  line-height: 1.2;
+  line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
 }
 
 .user-profile__username {
   color: var(--devfinder-username);
   font-size: var(--font-size-1);
+  line-height: var(--font-lineheight-3);
   font-style: normal;
-  line-height: 1.5;
   font-weight: var(--font-weight-4);
 }
 
@@ -1792,8 +1797,8 @@ li[class^="user-stats__"] > p > span {
   &:last-child {
     font-size: var(--font-size-10);
     font-weight: var(--font-weight-7);
+    line-height: var(--font-lineheight-7);
     color: var(--numbers);
-    line-height: 1.4;
   }
 }
 
@@ -1835,8 +1840,8 @@ li[class^="user-links__"] {
 .join-date, .fade_not-available, .bio-content, .location-content, .link-content {
   color: var(--text-primary);
   font-size: var(--font-size-13);
+  line-height: var(--font-lineheight-3);
   font-style: normal;
-  line-height: 1.5;
   font-weight: var(--font-weight-4);
 }
 
@@ -1861,5 +1866,44 @@ li[class^="user-links__"] {
 
 .app-profile__information-bio {
   margin-block: var(--size-5);
+}
+
+.app-no-profile-found {
+  padding-block: var(--size-5);
+  padding-inline: var(--size-5);
+
+  @media (width >= 768px) {
+    padding-block: var(--size-8);
+    padding-inline: var(--size-8);
+  }
+}
+
+.app-no-result-found p {
+  text-align: center;
+}
+
+.app-no-profile-found__summary {
+  font-style: normal;
+  font-size: var(--font-size-13);
+  line-height: var(--font-lineheight-7);
+  color: var(--no-results-found-summary);
+  font-weight: var(--font-weight-7);
+  margin-block-end: var(--size-3);
+
+  @media (width >= 768px) {
+    font-size: var(--font-size-10);
+  }
+}
+
+.app-no-profile-found__text {
+  font-style: normal;
+  line-height: var(--font-lineheight-3);
+  font-weight: var(--font-weight-4);
+  color: var(--no-results-found-text);
+  font-size: var(--font-size-00);
+
+  @media (width >= 768px) {
+    font-size: var(--font-size-13);
+  }
 }
 /*# sourceMappingURL=github-user-search-app.9b4b9b3c.css.map */
