@@ -89,6 +89,7 @@
   --font-size-13: 0.9375rem;
   --font-lineheight-6: 1.2;
   --font-lineheight-7: 1.4;
+  --font-lineheight-8: 1;
 
   /* For Screen Readers*/
   --sr-only-width: 1px;
@@ -359,6 +360,8 @@ a:not([class]) {
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
   --box-shadow: 0 16px 30px -10px hsla(227, 46%, 50%, 0.2);
+  --no-results-found-summary: var(--neutral-700);
+  --no-results-found-text: var(--neutral-300);
 }
 
 /* Dark Theme Styles */
@@ -380,6 +383,9 @@ a:not([class]) {
   --logo: var(--neutral-0);
   --theme-toggle: var(--neutral-200);
   --box-shadow: unset;
+  --no-results-found-summary: var(--neutral-0);
+  --no-results-found-text: var(--neutral-200);
+
 }
 
 /* The Loader Styles */
@@ -423,7 +429,7 @@ div[class~="loader"][data-fade~="false"] {
 .navigation__header-logo {
   font-weight: var(--font-weight-7);
   font-style: normal;
-  line-height: calc(100 / 100);
+  line-height: var(--font-lineheight-8);
   color: var(--logo);
   font-size: var(--font-size-9);
   letter-spacing: -0.02em;
@@ -433,7 +439,7 @@ span[class="color-theme"] {
   font-style: normal;
   font-weight: var(--font-weight-7);
   font-size: var(--font-size-12);
-  line-height: calc(140 / 100);
+  line-height: var(--font-lineheight-7);
   letter-spacing: 0.15625rem;
   color: var(--theme-toggle);
 }
@@ -515,13 +521,15 @@ input[type="search"]::-ms-reveal {
   block-size: 0;
 }
 
+/* TODOImplement input font properties on light mode */
+
 /* Style the search input placeholder */
 input::placeholder {
   color: var(--text-placeholder);
   font-style: normal;
   font-weight: var(--font-weight-4);
   font-size: calc(11 / 16 * 1rem);
-  line-height: calc(140 / 100);
+  line-height: var(--font-lineheight-7);
   opacity: 0.7;
 
   @media (--md-n-above) {
@@ -583,7 +591,7 @@ span[aria-hidden="false"] {
   gap: var(--size-fluid-3);
   flex-direction: column;
   position: relative;
-  padding-inline: var(--size-300);
+  padding-inline: var(--size-8);
   padding-block-start: var(--size-fluid-4);
 
   @media (--md-n-above) {
@@ -614,8 +622,6 @@ span[aria-hidden="false"] {
   inset: calc(33 / 16 * 1rem)
     clamp(0rem, calc((100vw - 320px) * 420 / 447), 26.25rem) auto auto;
 
-  /* TODO  */
-  /* Unset the position property when it is on table device */
   @media (--md-n-above) {
     position: unset;
     inset: unset;
@@ -628,14 +634,14 @@ span[aria-hidden="false"] {
   color: var(--devfinder-name);
   font-size: var(--font-size-9);
   font-style: normal;
-  line-height: calc(120 / 100);
+  line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
 }
 
 .user-profile__username {
   color: var(--devfinder-username);
   font-size: var(--font-size-1);
-  line-height: calc(150 / 100);
+  line-height: var(--font-lineheight-3);
   font-style: normal;
   font-weight: var(--font-weight-4);
 }
@@ -685,7 +691,7 @@ li[class^="user-stats__"] > p > span {
   &:last-child {
     font-size: var(--font-size-10);
     font-weight: var(--font-weight-7);
-    line-height: calc(140 / 100);
+    line-height: var(--font-lineheight-7);
     color: var(--numbers);
   }
 }
@@ -724,7 +730,6 @@ li[class^="user-links__"] {
     & > img {
       flex: 0 1 0; /* which is the same as flex-shrink: 1; flex-grow: 0; flex-basis: 0 */
     }
-
   }
 }
 
@@ -735,7 +740,7 @@ li[class^="user-links__"] {
 .link-content {
   color: var(--text-primary);
   font-size: var(--font-size-13);
-  line-height: calc(150 / 100);
+  line-height: var(--font-lineheight-3);
   font-style: normal;
   font-weight: var(--font-weight-4);
 }
@@ -762,4 +767,46 @@ li[class^="user-links__"] {
 
 .app-profile__information-bio {
   margin-block: var(--size-5);
+}
+
+
+/* Error State -- No result Found */
+.app-no-profile-found {
+  padding-block: var(--size-5);
+  padding-inline: var(--size-5);
+
+  @media (--md-n-above) {
+    padding-block: var(--size-8);
+    padding-inline: var(--size-8);
+  }
+}
+
+.app-no-result-found p {
+  text-align: center;
+}
+
+.app-no-profile-found__summary {
+  font-style: normal;
+  font-size: var(--font-size-13);
+  line-height: var(--font-lineheight-7);
+  color: var(--no-results-found-summary);
+  font-weight: var(--font-weight-7);
+  margin-block-end: var(--size-3);
+
+  @media(--md-n-above) {
+    font-size: var(--font-size-10);
+  }
+}
+
+.app-no-profile-found__text {
+  font-style: normal;
+  line-height: var(--font-lineheight-3);
+  font-weight: var(--font-weight-4);
+  color: var(--no-results-found-text);
+  font-size: var(--font-size-00);
+
+  @media(--md-n-above) {
+    font-size: var(--font-size-13);
+  }
+
 }
