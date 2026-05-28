@@ -1225,9 +1225,16 @@
   --neutral-700: #2a3241;
   --neutral-800: #1e2b48;
   --neutral-900: #141d2e;
+  --neutral-1000: #e1e7ef;
+  --neutral-2000: #162d45;
+  --neutral-3000: #455eba33;
   --blue-300: #61abff;
   --blue-500: #07f;
   --red-500: #f74545;
+  --theme-duration: .3s;
+  --skeleton-duration: 1.5s;
+  --motion-duration: 4s;
+  --motion-preferred-duration: .01ms;
   --size-0: 0;
   --size-025: calc(2 / 16 * 1rem);
   --size-05: calc(4 / 16 * 1rem);
@@ -1291,13 +1298,16 @@
 }
 
 * {
+  transition: background-color var(--theme-duration) ease,
+    color var(--theme-duration) ease,
+    border-color var(--theme-duration) ease;
   margin: 0;
   padding: 0;
-  transition: background-color .3s, color .3s, border-color .3s;
 }
 
 :after, :before {
-  transition: opacity .3s, transform .3s;
+  transition: opacity var(--theme-duration) ease,
+    transform var(--theme-duration) ease;
 }
 
 *, :before, :after {
@@ -1408,9 +1418,9 @@ a:not([class]) {
   }
 
   *, :before, :after {
+    animation-duration: var(--motion-preferred-duration) !important;
     scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
+    transition-duration: var(--motion-preferred-duration) !important;
     animation-iteration-count: 1 !important;
   }
 }
@@ -1477,6 +1487,7 @@ a:not([class]) {
 
 [data-theme="light"] {
   color-scheme: dark;
+  --shimmer: var(--neutral-1000);
   --background-color-body: var(--neutral-100);
   --background-color-component: var(--neutral-0);
   --devfinder-name: var(--neutral-700);
@@ -1491,13 +1502,15 @@ a:not([class]) {
   --hover-mode: var(--neutral-700);
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
-  --box-shadow: 0 16px 30px -10px #455eba33;
+  --box-shadow: 0 16px 30px -10px var(--neutral-3000);
   --no-results-found-summary: var(--neutral-700);
   --no-results-found-text: var(--neutral-300);
+  --input-text: var(--neutral-700);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --shimmer: var(--neutral-2000);
   --background-color-body: var(--neutral-900);
   --background-color-component: var(--neutral-800);
   --devfinder-name: var(--neutral-0);
@@ -1515,6 +1528,7 @@ a:not([class]) {
   --box-shadow: unset;
   --no-results-found-summary: var(--neutral-0);
   --no-results-found-text: var(--neutral-200);
+  --input-text: var(--neutral-0);
 }
 
 div[class~="loader"] {
@@ -1582,8 +1596,12 @@ form > img {
   }
 }
 
-[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"], img[class="search-icon__light"], img[data-link-icon-theme="dark"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"], img[class="search-icon__dark"], img[data-link-icon-theme="light"]) {
-  display: var(--inline-block);
+[data-theme="light"] :is(img[class="icon-moon"], span[data-set-theme="dark"], img[class="search-icon__light"], img[data-link-icon-theme="dark"], img[data-image-search-user-theme="light"]), [data-theme="dark"] :is(img[class="icon-sun"], span[data-set-theme="light"], img[class="search-icon__dark"], img[data-link-icon-theme="light"], img[data-image-search-user-theme="dark"]) {
+  display: var(--block);
+}
+
+img[data-image-search-user-theme="dark"], img[data-image-search-user-theme="light"] {
+  margin-inline: auto;
 }
 
 button[class="toggle-theme"] {
@@ -1601,6 +1619,7 @@ button[class="toggle-theme"] {
   align-items: center;
   padding-inline-start: var(--size-150);
   padding-inline-end: var(--size-150);
+  font-style: normal;
 
   @media (width >= 768px) {
     padding-block: var(--size-220);
@@ -1636,6 +1655,18 @@ input[type="search"]::-ms-reveal {
   inline-size: 0;
 }
 
+input[type="search"] {
+  font-weight: var(--font-weight-4);
+  line-height: var(--font-lineheight-7);
+  color: var(--input-text);
+  font-size: var(--font-size-1);
+  caret-color: var(--input-text);
+
+  @media (width >= 768px) {
+    font-size: var(--font-size-11);
+  }
+}
+
 input::placeholder {
   color: var(--text-placeholder);
   font-style: normal;
@@ -1655,7 +1686,6 @@ input::placeholder {
 
 .navigation__search-button {
   background-color: var(--blue-500);
-  font-style: normal;
   font-size: var(--font-size-1);
   font-weight: var(--font-weight-7);
   line-height: var(--font-lineheight-3);
@@ -1679,12 +1709,10 @@ span[aria-hidden="false"] {
   line-height: var(--font-lineheight-3);
   color: var(--error-message);
   position: absolute;
-  top: 4.6875rem;
-  right: .9375rem;
+  inset: 4.6875rem .9375rem auto auto;
 
   @media (width >= 768px) {
-    top: 2.125rem;
-    right: 9.375rem;
+    inset: 2.125rem 9.375rem auto auto;
   }
 }
 
@@ -1695,10 +1723,166 @@ span[aria-hidden="false"] {
   margin-block-end: 6.06rem;
 }
 
+.app-skeleton-body {
+  display: var(--flex);
+  gap: var(--size-fluid-3);
+  padding-inline: var(--size-300);
+  padding-block: var(--size-fluid-4);
+  flex-direction: column;
+  position: relative;
+
+  @media (width >= 768px) {
+    position: unset;
+    padding-inline: var(--size-fluid-4);
+    flex-direction: row;
+  }
+}
+
+.app-skeleton-avatar {
+  border-radius: 50%;
+  block-size: 4.375rem;
+  inline-size: 4.375rem;
+
+  @media (width >= 768px) {
+    border-radius: 50%;
+    block-size: 7.3125rem;
+    inline-size: 7.3125rem;
+  }
+}
+
+.app-skeleton-profile-section {
+  @media (width >= 768px) {
+    flex-grow: 1;
+    flex-basis: 10%;
+  }
+}
+
+.app-skeleton {
+  background-color: var(--background-color-body);
+  position: relative;
+  overflow: hidden;
+}
+
+.app-skeleton-line {
+  border-radius: var(--radius-10);
+  block-size: 1.4375rem;
+
+  @media (width < 360px) {
+    block-size: var(--size-px-3);
+  }
+}
+
+.app-skeleton-line__name {
+  border-radius: var(--radius-10);
+  block-size: 1.9375rem;
+
+  @media (width < 360px) {
+    block-size: var(--size-px-5);
+  }
+}
+
+.app-skeleton-line__name.w-name {
+  inline-size: 90%;
+  margin-block-end: var(--size-1);
+}
+
+.app-skeleton-line.w-link {
+  inline-size: 85%;
+}
+
+.app-skeleton-line.w-username {
+  inline-size: 40%;
+  margin-block-end: var(--size-1);
+
+  @media (width >= 768px) {
+    margin-block-end: unset;
+  }
+}
+
+.app-skeleton-line.w-joindate {
+  inline-size: min(85%, 12.5rem);
+}
+
+.app-skeleton-line__stats {
+  border-radius: var(--radius-10);
+  height: 14.3125rem;
+
+  @media (width >= 768px) {
+    border-radius: var(--radius-10);
+    height: 5.3125rem;
+  }
+}
+
+.app-skeleton-profile-section__user-profile {
+  inline-size: 54.67%;
+  position: absolute;
+  inset: 2.0625rem clamp(24px, 40.4922vw - 105.575px, 205px) auto auto;
+
+  @media (width >= 768px) {
+    position: unset;
+    inset: unset;
+    inline-size: unset;
+    display: var(--flex);
+  }
+}
+
+.app-skeleton_wrapper-username-name {
+  inline-size: min(92%, 19.625rem);
+}
+
+.app-skeleton-profile-section__bio {
+  margin-block: var(--size-5);
+}
+
+.app-skeleton-profile-section__stats {
+  margin-block-end: var(--size-300);
+}
+
+.app-skeleton-profile-section__links {
+  display: var(--flex);
+  gap: var(--size-3);
+  flex-direction: column;
+
+  @media (width >= 768px) {
+    flex-flow: wrap;
+
+    & * {
+      flex-basis: calc(50% - var(--size-3));
+      flex-grow: 1;
+    }
+  }
+}
+
+.app-skeleton.animate.shimmer:after {
+  content: "";
+  opacity: .7;
+  background-image: linear-gradient(90deg,
+    transparent 0%,
+    var(--shimmer) 50%,
+    transparent 100%);
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: var(--skeleton-duration);
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .app-profile {
   display: var(--flex);
   gap: var(--size-fluid-3);
-  padding-inline: var(--size-8);
+  padding-inline: var(--size-300);
   flex-direction: column;
   padding-block-start: var(--size-fluid-4);
   position: relative;
@@ -1729,6 +1913,10 @@ span[aria-hidden="false"] {
   position: absolute;
   inset: 2.0625rem clamp(0rem, 93.9597vw - 300.671px, 26.25rem) auto auto;
 
+  @media (width < 360px) {
+    inset: 2.6rem clamp(44px, 92.3077vw - 251.385px, 5rem) auto auto;
+  }
+
   @media (width >= 768px) {
     position: unset;
     inset: unset;
@@ -1743,6 +1931,10 @@ span[aria-hidden="false"] {
   font-style: normal;
   line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
+
+  @media (width < 360px) {
+    font-size: var(--font-size-11);
+  }
 }
 
 .user-profile__username {
@@ -1751,6 +1943,10 @@ span[aria-hidden="false"] {
   line-height: var(--font-lineheight-3);
   font-style: normal;
   font-weight: var(--font-weight-4);
+
+  @media (width < 360px) {
+    font-size: var(--font-size-12);
+  }
 }
 
 .app-profile__information-stats {
@@ -1815,8 +2011,8 @@ li[class^="user-stats__"] > p > span {
     flex-flow: wrap;
 
     & * {
+      flex-basis: calc(50% - var(--size-3));
       flex-grow: 1;
-      flex-basis: calc(50% - 1rem);
     }
   }
 }
@@ -1832,7 +2028,8 @@ li[class^="user-links__"] {
 
   @media (width >= 768px) {
     & > img {
-      flex: 0 1 0;
+      flex-grow: 0;
+      flex-shrink: 1;
     }
   }
 }
@@ -1843,6 +2040,12 @@ li[class^="user-links__"] {
   line-height: var(--font-lineheight-3);
   font-style: normal;
   font-weight: var(--font-weight-4);
+}
+
+.join-date {
+  @media (width < 360px) {
+    font-size: var(--font-size-12);
+  }
 }
 
 .link-content > span {
@@ -1868,7 +2071,7 @@ li[class^="user-links__"] {
   margin-block: var(--size-5);
 }
 
-.app-no-profile-found {
+.app-no-profile-found, .app-search-user-profile {
   padding-block: var(--size-5);
   padding-inline: var(--size-5);
 
@@ -1878,11 +2081,11 @@ li[class^="user-links__"] {
   }
 }
 
-.app-no-result-found p {
+.app-no-result-found p, .app-user-profile-search p {
   text-align: center;
 }
 
-.app-no-profile-found__summary {
+.app-no-profile-found__summary, .app-user-profile-search__summary {
   font-style: normal;
   font-size: var(--font-size-13);
   line-height: var(--font-lineheight-7);
@@ -1895,7 +2098,7 @@ li[class^="user-links__"] {
   }
 }
 
-.app-no-profile-found__text {
+.app-no-profile-found__text, .app-user-profile-search__text {
   font-style: normal;
   line-height: var(--font-lineheight-3);
   font-weight: var(--font-weight-4);
@@ -1905,5 +2108,9 @@ li[class^="user-links__"] {
   @media (width >= 768px) {
     font-size: var(--font-size-13);
   }
+}
+
+.app-user-profile-search img {
+  display: var(--hidden);
 }
 /*# sourceMappingURL=github-user-search-app.9b4b9b3c.css.map */
