@@ -26,8 +26,8 @@
   --neutral-700: hsl(219, 21%, 21%);
   --neutral-800: hsl(222, 41%, 20%);
   --neutral-900: hsl(220, 40%, 13%);
-  --neutral-1000: hsl(210, 40%, 98%);
-  --neutral-2000: hsl(212, 44%, 43%);
+  --neutral-1000: hsla(214, 32%, 91%);
+  --neutral-2000: hsl(211, 51%, 18%);
   --neutral-3000: hsla(227, 46%, 50%, 0.2);
   --blue-300: hsl(212, 100%, 69%);
   --blue-500: hsl(212, 100%, 50%);
@@ -280,7 +280,7 @@ a:not([class]) {
 
 @custom-media --mouse (hover) and (pointer: fine);
 @custom-media --md-n-above (width >= 768px);
-@custom-media --xs-n-below    (width < 360px);
+@custom-media --xs-n-below (width < 360px);
 
 @media (--mouse) {
   button[class="toggle-theme"] {
@@ -597,12 +597,11 @@ span[aria-hidden="false"] {
   line-height: var(--font-lineheight-3);
   color: var(--error-message);
   position: absolute;
-  right: calc(15 / 16 * 1rem);
-  top: calc(75 / 16 * 1rem);
+
+  inset: calc(75 / 16 * 1rem) calc(15 / 16 * 1rem) auto auto;
 
   @media (--md-n-above) {
-    right: calc(150 / 16 * 1rem);
-    top: calc(34 / 16 * 1rem);
+    inset: calc(34 / 16 * 1rem) calc(150 / 16 * 1rem) auto auto;
   }
 }
 
@@ -611,6 +610,168 @@ span[aria-hidden="false"] {
   border-radius: var(--radius-3);
   box-shadow: var(--box-shadow);
   margin-block-end: calc(96.96 / 16 * 1rem);
+}
+
+/* SKeleton loader animation  */
+.app-skeleton-body {
+  display: var(--flex);
+  gap: var(--size-fluid-3);
+  flex-direction: column;
+  padding-inline: var(--size-300);
+  padding-block: var(--size-fluid-4);
+  position: relative;
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    position: unset;
+    padding-inline: var(--size-fluid-4);
+  }
+}
+
+.app-skeleton-avatar {
+  inline-size: calc(70 / 16 * 1rem);
+  block-size: calc(70 / 16 * 1rem);
+  border-radius: 50%;
+
+  @media (--md-n-above) {
+    inline-size: calc(117 / 16 * 1rem);
+    block-size: calc(117 / 16 * 1rem);
+    border-radius: 50%;
+  }
+}
+
+.app-skeleton-profile-section {
+  @media (--md-n-above) {
+    flex-basis: 10%;
+    flex-grow: 1;
+  }
+}
+
+.app-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--background-color-body);
+}
+
+.app-skeleton-line {
+  block-size: calc(23 / 16 * 1rem);
+  border-radius: var(--radius-10);
+
+  @media (--xs-n-below) {
+    block-size: var(--size-px-3);
+  }
+}
+
+.app-skeleton-line__name {
+  block-size: calc(31 / 16 * 1rem);
+  border-radius: var(--radius-10);
+
+  @media (--xs-n-below) {
+    block-size: var(--size-px-5);
+  }
+}
+
+.app-skeleton-line__name.w-name {
+  inline-size: 90%;
+  margin-block-end: var(--size-1);
+}
+
+.app-skeleton-line.w-link {
+  inline-size: 85%;
+}
+
+.app-skeleton-line.w-username {
+  margin-block-end: var(--size-1);
+  inline-size: 40%;
+
+  @media (--md-n-above) {
+    margin-block-end: unset;
+  }
+}
+
+.app-skeleton-line.w-joindate {
+  inline-size: min(85%, calc(200 / 16 * 1rem));
+}
+
+.app-skeleton-line__stats {
+  height: calc(229 / 16 * 1rem);
+  border-radius: var(--radius-10);
+
+  @media (--md-n-above) {
+    height: calc(85 / 16 * 1rem);
+    border-radius: var(--radius-10);
+  }
+}
+
+.app-skeleton-profile-section__user-profile {
+  position: absolute;
+  inset: calc(33 / 16 * 1rem)
+    clamp(24px, calc(24px + (100vw - 320px) * 181 / 447), 205px) auto auto;
+  /* From the Figma file the width of this component on a 375px device is 205px the width desired width in the code for mobile devices is (205 / 375) * 100% */
+  inline-size: 54.67%;
+
+  @media (--md-n-above) {
+    position: unset;
+    inset: unset;
+    inline-size: unset;
+    display: var(--flex);
+  }
+}
+
+.app-skeleton_wrapper-username-name {
+  inline-size: min(92%, calc(314 / 16 * 1rem));
+}
+
+.app-skeleton-profile-section__bio {
+  margin-block: var(--size-5);
+}
+
+.app-skeleton-profile-section__stats {
+  margin-block-end: var(--size-300);
+}
+
+.app-skeleton-profile-section__links {
+  display: var(--flex);
+  flex-direction: column;
+  gap: var(--size-3);
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    * {
+      flex-basis: calc(50% - var(--size-3));
+      flex-grow: 1;
+    }
+  }
+}
+
+.app-skeleton.animate.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--shimmer) 50%,
+    transparent 100%
+  );
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-direction: alternate;
+  animation-duration: var(--skeleton-duration);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Search success: styles for the populated GitHub user profile */
@@ -634,110 +795,6 @@ span[aria-hidden="false"] {
   }
 }
 
-/* TEST START */
-.app-skeleton-body {
-  display: var(--flex);
-  gap: var(--size-fluid-3);
-  flex-direction: column;
-  padding-inline: var(--size-300);
-  padding-block: var(--size-fluid-4);
-  position: relative;
-
-  @media (--md-n-above) {
-    flex-direction: row;
-    position: unset;
-    padding-inline: var(--size-fluid-4);
-  }
-}
-
-.app-skeleton {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--background-color-body);
-  border-radius: var(--radius-10);
-}
-
-.app-skeleton-line {
-  block-size: calc(23 / 16 * 1rem);
-
-  @media(--xs-n-below) {
-    block-size: var(--size-px-3);
-  }
-}
-
-.app-skeleton-line__name {
-  block-size: calc(31 / 16 * 1rem);
-
-  @media(--xs-n-below) {
-    block-size: var(--size-px-5);
-  }
-}
-
-.app-skeleton-line__name.w-name {
-  inline-size: 90%; 
-  margin-block-end: var(--size-1);
-}
-
-.app-skeleton-line.w-username {
-  margin-block-end: var(--size-1);
-  inline-size: 40%;
-}
-
-.app-skeleton-line.w-joindate {
-  inline-size: 85%;
-}
-
-.app-skeleton-line__stats {
-  height: calc(229 / 16 * 1rem);
-
-  @media (--md-n-above) {
-    height: calc(85 / 16 * 1rem);
-  }
-}
-
-.app-skeleton-avatar {
-  inline-size: calc(70 / 16 * 1rem);
-  block-size: calc(70 / 16 * 1rem);
-  border-radius: 50%;
-
-  @media (--md-n-above) {
-    inline-size: calc(117 / 16 * 1rem);
-    block-size: calc(117 / 16 * 1rem);
-  }
-}
-
-.app-skeleton-profile-section__user-profile {
-  position: absolute;
-  inset: calc(33 / 16 * 1rem) clamp(24px, calc(24px + (100vw - 320px) * 181 / 447), 205px) auto auto;
-  /* From the Figma file the width of this component on a 375px device is 205px the width desired width in the code for mobile devices is (205 / 375) * 100% */
-  inline-size: 54.67%;
-}
-
-.app-skeleton-profile-section__bio {
-  margin-block: var(--size-5);
-}
-
-.app-skeleton-profile-section__stats {
-  margin-block-end: var(--size-300);
-}
-
-.app-skeleton-profile-section__links {
-  display: var(--flex); 
-  flex-direction: column;
-  gap: var(--size-3);
-}
-
-.app-skeleton.animate.shimmer::after {
-  content: '🧶';
-  position: absolute;
-  inset: 0;
-  opacity: 0.7;
-  background-image: linear-gradient(90deg, transparent 100%, var(--shimmer) 50%, transparent 100%);
-
-}
-
-/* TEST END  */
-
 .app-profile__img-placeholder {
   inline-size: calc(70 / 16 * 1rem);
   block-size: calc(70 / 16 * 1rem);
@@ -754,9 +811,9 @@ span[aria-hidden="false"] {
   inset: calc(33 / 16 * 1rem)
     clamp(0rem, calc((100vw - 320px) * 420 / 447), 26.25rem) auto auto;
 
-
   @media (--xs-n-below) {
-    inset: calc(41.6 / 16 * 1rem) clamp(44px, calc(44px + (100vw - 320px) * 12 / 13), 5rem) auto auto;
+    inset: calc(41.6 / 16 * 1rem)
+      clamp(44px, calc(44px + (100vw - 320px) * 12 / 13), 5rem) auto auto;
   }
 
   @media (--md-n-above) {
@@ -774,7 +831,7 @@ span[aria-hidden="false"] {
   line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
 
-  @media(--xs-n-below) {
+  @media (--xs-n-below) {
     font-size: var(--font-size-11);
   }
 }
@@ -786,7 +843,7 @@ span[aria-hidden="false"] {
   font-style: normal;
   font-weight: var(--font-weight-4);
 
-  @media(--xs-n-below) {
+  @media (--xs-n-below) {
     font-size: var(--font-size-12);
   }
 }
@@ -856,7 +913,7 @@ li[class^="user-stats__"] > p > span {
     flex-wrap: wrap;
 
     * {
-      flex-basis: calc(50% - 1rem);
+      flex-basis: calc(50% - var(--size-3));
       flex-grow: 1;
     }
   }
@@ -873,7 +930,8 @@ li[class^="user-links__"] {
 
   @media (--md-n-above) {
     & > img {
-      flex: 0 1 0; /* which is the same as flex-shrink: 1; flex-grow: 0; flex-basis: 0 */
+      flex-shrink: 1;
+      flex-grow: 0;
     }
   }
 }
@@ -891,7 +949,7 @@ li[class^="user-links__"] {
 }
 
 .join-date {
-  @media(--xs-n-below) {
+  @media (--xs-n-below) {
     font-size: var(--font-size-12);
   }
 }
