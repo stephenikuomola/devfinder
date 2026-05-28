@@ -26,9 +26,16 @@
   --neutral-700: hsl(219, 21%, 21%);
   --neutral-800: hsl(222, 41%, 20%);
   --neutral-900: hsl(220, 40%, 13%);
-  --blue-300: #61abff;
+  --neutral-1000: hsl(210, 40%, 98%);
+  --neutral-2000: hsl(212, 44%, 43%);
+  --neutral-3000: hsla(227, 46%, 50%, 0.2);
+  --blue-300: hsl(212, 100%, 69%);
   --blue-500: hsl(212, 100%, 50%);
   --red-500: hsl(0, 92%, 62%);
+  --theme-duration: 0.3s;
+  --skeleton-duration: 1.5s;
+  --motion-duration: 4s;
+  --motion-preferred-duration: 0.00001s;
 
   /* Sizes */
   --size-0: 0;
@@ -106,16 +113,16 @@
   margin: 0;
   padding: 0;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
+    background-color var(--theme-duration) ease,
+    color var(--theme-duration) ease,
+    border-color var(--theme-duration) ease;
 }
 
 *::after,
 *::before {
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+    opacity var(--theme-duration) ease,
+    transform var(--theme-duration) ease;
 }
 
 *,
@@ -263,16 +270,17 @@ a:not([class]) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: var(--motion-preferred-duration) !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: var(--motion-preferred-duration) !important;
   }
   /* eslint-enable css/no-important */
 }
 
 @custom-media --mouse (hover) and (pointer: fine);
 @custom-media --md-n-above (width >= 768px);
+@custom-media --xs-n-below    (width < 360px);
 
 @media (--mouse) {
   button[class="toggle-theme"] {
@@ -345,6 +353,7 @@ a:not([class]) {
 [data-theme="light"] {
   color-scheme: dark;
 
+  --shimmer: var(--neutral-1000);
   --background-color-body: var(--neutral-100);
   --background-color-component: var(--neutral-0);
   --devfinder-name: var(--neutral-700);
@@ -359,15 +368,17 @@ a:not([class]) {
   --hover-mode: var(--neutral-700);
   --logo: var(--neutral-900);
   --theme-toggle: var(--neutral-500);
-  --box-shadow: 0 16px 30px -10px hsla(227, 46%, 50%, 0.2);
+  --box-shadow: 0 16px 30px -10px var(--neutral-3000);
   --no-results-found-summary: var(--neutral-700);
   --no-results-found-text: var(--neutral-300);
+  --input-text: var(--neutral-700);
 }
 
 /* Dark Theme Styles */
 [data-theme="dark"] {
   color-scheme: dark;
 
+  --shimmer: var(--neutral-2000);
   --background-color-body: var(--neutral-900);
   --background-color-component: var(--neutral-800);
   --devfinder-name: var(--neutral-0);
@@ -385,7 +396,7 @@ a:not([class]) {
   --box-shadow: unset;
   --no-results-found-summary: var(--neutral-0);
   --no-results-found-text: var(--neutral-200);
-
+  --input-text: var(--neutral-0);
 }
 
 /* The Loader Styles */
@@ -466,9 +477,10 @@ form > img {
     img[class="icon-moon"],
     span[data-set-theme="dark"],
     img[class="search-icon__light"],
-    img[data-link-icon-theme="dark"]
+    img[data-link-icon-theme="dark"],
+    img[data-image-search-user-theme="light"]
   ) {
-  display: var(--inline-block);
+  display: var(--block);
 }
 
 /* On dark mode display the sun icon and the light text that enables the light theme */
@@ -477,9 +489,15 @@ form > img {
     img[class="icon-sun"],
     span[data-set-theme="light"],
     img[class="search-icon__dark"],
-    img[data-link-icon-theme="light"]
+    img[data-link-icon-theme="light"],
+    img[data-image-search-user-theme="dark"]
   ) {
-  display: var(--inline-block);
+  display: var(--block);
+}
+
+img[data-image-search-user-theme="dark"],
+img[data-image-search-user-theme="light"] {
+  margin-inline: auto;
 }
 
 button[class="toggle-theme"] {
@@ -498,6 +516,7 @@ button[class="toggle-theme"] {
   padding-block: var(--size-130);
   padding-inline-end: var(--size-150);
   padding-inline-start: var(--size-150);
+  font-style: normal;
 
   @media (--md-n-above) {
     padding-block: var(--size-220);
@@ -521,7 +540,17 @@ input[type="search"]::-ms-reveal {
   block-size: 0;
 }
 
-/* TODOImplement input font properties on light mode */
+input[type="search"] {
+  font-weight: var(--font-weight-4);
+  line-height: var(--font-lineheight-7);
+  color: var(--input-text);
+  font-size: var(--font-size-1);
+  caret-color: var(--input-text);
+
+  @media (--md-n-above) {
+    font-size: var(--font-size-11);
+  }
+}
 
 /* Style the search input placeholder */
 input::placeholder {
@@ -544,7 +573,6 @@ input::placeholder {
 /* Style the "search" button */
 .navigation__search-button {
   background-color: var(--blue-500);
-  font-style: normal;
   font-size: var(--font-size-1);
   font-weight: var(--font-weight-7);
   line-height: var(--font-lineheight-3);
@@ -591,7 +619,7 @@ span[aria-hidden="false"] {
   gap: var(--size-fluid-3);
   flex-direction: column;
   position: relative;
-  padding-inline: var(--size-8);
+  padding-inline: var(--size-300);
   padding-block-start: var(--size-fluid-4);
 
   @media (--md-n-above) {
@@ -605,6 +633,110 @@ span[aria-hidden="false"] {
     }
   }
 }
+
+/* TEST START */
+.app-skeleton-body {
+  display: var(--flex);
+  gap: var(--size-fluid-3);
+  flex-direction: column;
+  padding-inline: var(--size-300);
+  padding-block: var(--size-fluid-4);
+  position: relative;
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    position: unset;
+    padding-inline: var(--size-fluid-4);
+  }
+}
+
+.app-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--background-color-body);
+  border-radius: var(--radius-10);
+}
+
+.app-skeleton-line {
+  block-size: calc(23 / 16 * 1rem);
+
+  @media(--xs-n-below) {
+    block-size: var(--size-px-3);
+  }
+}
+
+.app-skeleton-line__name {
+  block-size: calc(31 / 16 * 1rem);
+
+  @media(--xs-n-below) {
+    block-size: var(--size-px-5);
+  }
+}
+
+.app-skeleton-line__name.w-name {
+  inline-size: 90%; 
+  margin-block-end: var(--size-1);
+}
+
+.app-skeleton-line.w-username {
+  margin-block-end: var(--size-1);
+  inline-size: 40%;
+}
+
+.app-skeleton-line.w-joindate {
+  inline-size: 85%;
+}
+
+.app-skeleton-line__stats {
+  height: calc(229 / 16 * 1rem);
+
+  @media (--md-n-above) {
+    height: calc(85 / 16 * 1rem);
+  }
+}
+
+.app-skeleton-avatar {
+  inline-size: calc(70 / 16 * 1rem);
+  block-size: calc(70 / 16 * 1rem);
+  border-radius: 50%;
+
+  @media (--md-n-above) {
+    inline-size: calc(117 / 16 * 1rem);
+    block-size: calc(117 / 16 * 1rem);
+  }
+}
+
+.app-skeleton-profile-section__user-profile {
+  position: absolute;
+  inset: calc(33 / 16 * 1rem) clamp(24px, calc(24px + (100vw - 320px) * 181 / 447), 205px) auto auto;
+  /* From the Figma file the width of this component on a 375px device is 205px the width desired width in the code for mobile devices is (205 / 375) * 100% */
+  inline-size: 54.67%;
+}
+
+.app-skeleton-profile-section__bio {
+  margin-block: var(--size-5);
+}
+
+.app-skeleton-profile-section__stats {
+  margin-block-end: var(--size-300);
+}
+
+.app-skeleton-profile-section__links {
+  display: var(--flex); 
+  flex-direction: column;
+  gap: var(--size-3);
+}
+
+.app-skeleton.animate.shimmer::after {
+  content: '🧶';
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-image: linear-gradient(90deg, transparent 100%, var(--shimmer) 50%, transparent 100%);
+
+}
+
+/* TEST END  */
 
 .app-profile__img-placeholder {
   inline-size: calc(70 / 16 * 1rem);
@@ -622,6 +754,11 @@ span[aria-hidden="false"] {
   inset: calc(33 / 16 * 1rem)
     clamp(0rem, calc((100vw - 320px) * 420 / 447), 26.25rem) auto auto;
 
+
+  @media (--xs-n-below) {
+    inset: calc(41.6 / 16 * 1rem) clamp(44px, calc(44px + (100vw - 320px) * 12 / 13), 5rem) auto auto;
+  }
+
   @media (--md-n-above) {
     position: unset;
     inset: unset;
@@ -636,6 +773,10 @@ span[aria-hidden="false"] {
   font-style: normal;
   line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
+
+  @media(--xs-n-below) {
+    font-size: var(--font-size-11);
+  }
 }
 
 .user-profile__username {
@@ -644,6 +785,10 @@ span[aria-hidden="false"] {
   line-height: var(--font-lineheight-3);
   font-style: normal;
   font-weight: var(--font-weight-4);
+
+  @media(--xs-n-below) {
+    font-size: var(--font-size-12);
+  }
 }
 
 /* The user stats */
@@ -665,10 +810,10 @@ span[aria-hidden="false"] {
   flex-direction: column;
   gap: var(--size-200);
 
-  @media(--md-n-above) {
+  @media (--md-n-above) {
     flex-direction: row;
     gap: unset;
-    
+
     * {
       flex: 1; /* same as flex: 1 1 0% */
       min-inline-size: 0;
@@ -709,7 +854,7 @@ li[class^="user-stats__"] > p > span {
   @media (--md-n-above) {
     flex-direction: row;
     flex-wrap: wrap;
-    
+
     * {
       flex-basis: calc(50% - 1rem);
       flex-grow: 1;
@@ -745,6 +890,12 @@ li[class^="user-links__"] {
   font-weight: var(--font-weight-4);
 }
 
+.join-date {
+  @media(--xs-n-below) {
+    font-size: var(--font-size-12);
+  }
+}
+
 .link-content > span {
   position: relative;
 }
@@ -769,9 +920,9 @@ li[class^="user-links__"] {
   margin-block: var(--size-5);
 }
 
-
-/* Error State -- No result Found */
-.app-no-profile-found {
+/* Error State -- No result Found and Initial Loaded content */
+.app-no-profile-found,
+.app-search-user-profile {
   padding-block: var(--size-5);
   padding-inline: var(--size-5);
 
@@ -781,11 +932,13 @@ li[class^="user-links__"] {
   }
 }
 
-.app-no-result-found p {
+.app-no-result-found p,
+.app-user-profile-search p {
   text-align: center;
 }
 
-.app-no-profile-found__summary {
+.app-no-profile-found__summary,
+.app-user-profile-search__summary {
   font-style: normal;
   font-size: var(--font-size-13);
   line-height: var(--font-lineheight-7);
@@ -793,20 +946,24 @@ li[class^="user-links__"] {
   font-weight: var(--font-weight-7);
   margin-block-end: var(--size-3);
 
-  @media(--md-n-above) {
+  @media (--md-n-above) {
     font-size: var(--font-size-10);
   }
 }
 
-.app-no-profile-found__text {
+.app-no-profile-found__text,
+.app-user-profile-search__text {
   font-style: normal;
   line-height: var(--font-lineheight-3);
   font-weight: var(--font-weight-4);
   color: var(--no-results-found-text);
   font-size: var(--font-size-00);
 
-  @media(--md-n-above) {
+  @media (--md-n-above) {
     font-size: var(--font-size-13);
   }
+}
 
+.app-user-profile-search img {
+  display: var(--hidden);
 }
