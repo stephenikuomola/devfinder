@@ -749,7 +749,7 @@ class ThemeComponent {
         localStorage.setItem(this.#prefsKey, JSON.stringify(userPrefs));
     }
 }
-console.log(new ThemeComponent());
+console.log(new ThemeComponent()); /* Steps and Features to implement */  // 1. 
 
 },{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {})
 
