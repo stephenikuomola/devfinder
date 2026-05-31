@@ -120,7 +120,40 @@
       </nav>
     </header>
     <main class="app">
-      <!-- Do not forget to implement skeleton ui loading animation -->
+          <!--The HTML structure of app when the page loads -->
+		  <div class="app-search-user-profile">
+        <section
+          class="app-user-profile-search"
+          aria-labelledby="search-github-profile"
+        >
+          <h1 class="sr-only" id="search-github-profile">
+            Search for GitHub Profile
+          </h1>
+          <img
+            src="./assets/images/dark-search.png"
+            aria-hidden="true"
+            width="200"
+            height="200"
+            alt=""
+            data-image-search-user-theme="dark"
+          />
+          <img
+            src="./assets/images/light-search.png"
+            alt=""
+            aria-hidden="true"
+            width="200"
+            height="200"
+            data-image-search-user-theme="light"
+          />
+          <p class="app-user-profile-search__summary">
+            Search for a GitHub user
+          </p>
+          <p class="app-user-profile-search__text">
+            Enter a GitHub username in the search field above and press Enter
+            or click Search to view their profile.
+          </p>
+        </section>
+      </div>
     </main>
   </body>
 </html>
