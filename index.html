@@ -93,9 +93,7 @@
               width="25"
               height="24"
             />
-            <label for="username" class="sr-only"
-              >Search for GitHub Users</label
-            >
+            <label for="username" class="sr-only">Search GitHub username</label>
             <input
               type="search"
               id="username"
@@ -110,19 +108,18 @@
             </button>
           </form>
           <!-- The Results messages and not for input validation -->
-          <span
+          <p
             id="search-error"
             role="alert"
             aria-live="assertive"
-            aria-hidden="false"
-            data-error="No result"
-          ></span>
+            aria-hidden="true"
+          ></p>
         </search>
       </nav>
     </header>
     <main class="app">
-          <!--The HTML structure of app when the page loads -->
-		  <div class="app-search-user-profile">
+      <!--The HTML structure of app when the page loads -->
+      <div class="app-search-user-profile">
         <section
           class="app-user-profile-search"
           aria-labelledby="search-github-profile"
@@ -150,8 +147,8 @@
             Search for a GitHub user
           </p>
           <p class="app-user-profile-search__text">
-            Enter a GitHub username in the search field above and press Enter
-            or click Search to view their profile.
+            Enter a GitHub username in the search field above and press Enter or
+            click Search to view their profile.
           </p>
         </section>
       </div>
