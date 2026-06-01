@@ -1698,11 +1698,11 @@ input::placeholder {
   }
 }
 
-span[aria-hidden="true"] {
+p[aria-hidden="true"] {
   display: var(--hidden);
 }
 
-span[aria-hidden="false"] {
+p[aria-hidden="false"] {
   font-size: var(--font-size-fluid-0);
   font-style: normal;
   font-weight: var(--font-weight-7);
@@ -1880,21 +1880,42 @@ span[aria-hidden="false"] {
 }
 
 .app-profile {
-  display: var(--flex);
-  gap: var(--size-fluid-3);
   padding-inline: var(--size-300);
-  flex-direction: column;
   padding-block-start: var(--size-fluid-4);
-  position: relative;
 
   @media (width >= 768px) {
-    position: unset;
     padding-inline: var(--size-fluid-4);
-    flex-direction: row;
+  }
+}
 
-    & .app-profile__img {
-      flex-basis: 25%;
-    }
+.app-profile__information {
+  position: unset;
+  margin-inline-start: unset;
+
+  @media (width >= 768px) {
+    margin-inline-start: 9.31rem;
+    position: relative;
+  }
+}
+
+.app-profile__information__wrapper {
+  display: var(--flex);
+  gap: var(--size-4);
+
+  @media (width >= 768px) {
+    display: unset;
+    gap: unset;
+  }
+}
+
+.app-profile__information-img {
+  position: unset;
+  inset: unset;
+
+  @media (width >= 768px) {
+    position: absolute;
+    inset: 0 auto auto;
+    transform: translateX(-9.3125rem);
   }
 }
 
@@ -1910,18 +1931,17 @@ span[aria-hidden="false"] {
 }
 
 .app-profile__information-header {
-  position: absolute;
-  inset: 2.0625rem clamp(0rem, 93.9597vw - 300.671px, 26.25rem) auto auto;
-
-  @media (width < 360px) {
-    inset: 2.6rem clamp(44px, 92.3077vw - 251.385px, 5rem) auto auto;
-  }
+  flex-basis: calc(100% - 5.625rem);
 
   @media (width >= 768px) {
-    position: unset;
-    inset: unset;
+    flex-basis: unset;
     display: var(--flex);
-    justify-content: space-between;
+  }
+}
+
+.user-profile {
+  @media (width >= 768px) {
+    flex-basis: 32.5ch;
   }
 }
 
@@ -1931,10 +1951,6 @@ span[aria-hidden="false"] {
   font-style: normal;
   line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
-
-  @media (width < 360px) {
-    font-size: var(--font-size-11);
-  }
 }
 
 .user-profile__username {
@@ -2028,8 +2044,7 @@ li[class^="user-links__"] {
 
   @media (width >= 768px) {
     & > img {
-      flex-grow: 0;
-      flex-shrink: 1;
+      flex: none;
     }
   }
 }
@@ -2043,6 +2058,10 @@ li[class^="user-links__"] {
 }
 
 .join-date {
+  @media (width >= 768px) {
+    flex-grow: 1;
+  }
+
   @media (width < 360px) {
     font-size: var(--font-size-12);
   }

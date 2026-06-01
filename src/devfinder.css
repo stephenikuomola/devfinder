@@ -586,11 +586,11 @@ input::placeholder {
 }
 
 /* Error Message */
-span[aria-hidden="true"] {
+p[aria-hidden="true"] {
   display: var(--hidden);
 }
 
-span[aria-hidden="false"] {
+p[aria-hidden="false"] {
   font-size: var(--font-size-fluid-0);
   font-style: normal;
   font-weight: var(--font-weight-7);
@@ -776,22 +776,43 @@ span[aria-hidden="false"] {
 
 /* Search success: styles for the populated GitHub user profile */
 .app-profile {
-  display: var(--flex);
-  gap: var(--size-fluid-3);
-  flex-direction: column;
-  position: relative;
   padding-inline: var(--size-300);
   padding-block-start: var(--size-fluid-4);
 
   @media (--md-n-above) {
-    flex-direction: row;
-    /* Unset the position property when user is on desktop */
-    position: unset;
     padding-inline: var(--size-fluid-4);
+  }
+}
 
-    .app-profile__img {
-      flex-basis: 25%;
-    }
+.app-profile__information {
+  position: unset;
+  margin-inline-start: unset;
+
+  @media (--md-n-above) {
+    position: relative;
+    margin-inline-start: 9.31rem;
+  }
+}
+
+.app-profile__information__wrapper {
+  display: var(--flex);
+  gap: var(--size-4);
+
+
+  @media (--md-n-above) {
+    display: unset; 
+    gap: unset;
+  }
+}
+
+.app-profile__information-img {
+  position: unset;
+  inset: unset;
+
+  @media (--md-n-above) {
+    position: absolute;
+    inset: 0 auto auto auto;
+    transform: translateX(calc(-149 / 16 * 1rem));
   }
 }
 
@@ -807,20 +828,17 @@ span[aria-hidden="false"] {
 }
 
 .app-profile__information-header {
-  position: absolute;
-  inset: calc(33 / 16 * 1rem)
-    clamp(0rem, calc((100vw - 320px) * 420 / 447), 26.25rem) auto auto;
-
-  @media (--xs-n-below) {
-    inset: calc(41.6 / 16 * 1rem)
-      clamp(44px, calc(44px + (100vw - 320px) * 12 / 13), 5rem) auto auto;
-  }
+  flex-basis: calc(100% - calc(90 / 16 * 1rem));
 
   @media (--md-n-above) {
-    position: unset;
-    inset: unset;
+    flex-basis: unset;
     display: var(--flex);
-    justify-content: space-between;
+  }
+}
+
+.user-profile {
+  @media (--md-n-above) {
+    flex-basis: 32.5ch;
   }
 }
 
@@ -830,10 +848,6 @@ span[aria-hidden="false"] {
   font-style: normal;
   line-height: var(--font-lineheight-6);
   font-weight: var(--font-weight-7);
-
-  @media (--xs-n-below) {
-    font-size: var(--font-size-11);
-  }
 }
 
 .user-profile__username {
@@ -930,8 +944,9 @@ li[class^="user-links__"] {
 
   @media (--md-n-above) {
     & > img {
-      flex-shrink: 1;
-      flex-grow: 0;
+      flex-grow: 0;  
+      flex-shrink: 0;
+      flex-basis: auto;
     }
   }
 }
@@ -949,6 +964,10 @@ li[class^="user-links__"] {
 }
 
 .join-date {
+  @media (--md-n-above) {
+    flex-grow: 1;
+  }
+
   @media (--xs-n-below) {
     font-size: var(--font-size-12);
   }
