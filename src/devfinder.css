@@ -614,21 +614,30 @@ p[aria-hidden="false"] {
 
 /* SKeleton loader animation  */
 .app-skeleton-body {
-  display: var(--flex);
-  gap: var(--size-fluid-3);
-  flex-direction: column;
   padding-inline: var(--size-300);
   padding-block: var(--size-fluid-4);
-  position: relative;
 
   @media (--md-n-above) {
-    flex-direction: row;
-    position: unset;
     padding-inline: var(--size-fluid-4);
   }
 }
 
 .app-skeleton-avatar {
+  position: unset;
+  inset: unset;
+  inline-size: calc(70 / 16 * 1rem);
+  block-size: calc(70 / 16 * 1rem);
+
+  @media (--md-n-above) {
+    inline-size: calc(117 / 16 * 1rem);
+    block-size: calc(117 / 16 * 1rem);
+    position: absolute;
+    inset: 0 auto auto auto;
+    transform: translateX(calc(-149 / 16 * 1rem));
+  }
+}
+
+.app-skeleton-avatar div {
   inline-size: calc(70 / 16 * 1rem);
   block-size: calc(70 / 16 * 1rem);
   border-radius: 50%;
@@ -636,14 +645,13 @@ p[aria-hidden="false"] {
   @media (--md-n-above) {
     inline-size: calc(117 / 16 * 1rem);
     block-size: calc(117 / 16 * 1rem);
-    border-radius: 50%;
   }
 }
 
 .app-skeleton-profile-section {
   @media (--md-n-above) {
-    flex-basis: 10%;
-    flex-grow: 1;
+    margin-inline-start: 9.31rem;
+    position: relative;
   }
 }
 
@@ -704,22 +712,30 @@ p[aria-hidden="false"] {
 }
 
 .app-skeleton-profile-section__user-profile {
-  position: absolute;
-  inset: calc(33 / 16 * 1rem)
-    clamp(24px, calc(24px + (100vw - 320px) * 181 / 447), 205px) auto auto;
-  /* From the Figma file the width of this component on a 375px device is 205px the width desired width in the code for mobile devices is (205 / 375) * 100% */
-  inline-size: 54.67%;
+  display: var(--flex);
+  gap: var(--size-4);
 
   @media (--md-n-above) {
-    position: unset;
-    inset: unset;
-    inline-size: unset;
-    display: var(--flex);
+    gap: unset;
+    display: unset;
   }
 }
 
-.app-skeleton_wrapper-username-name {
-  inline-size: min(92%, calc(314 / 16 * 1rem));
+.app-skeleton_username-name-joindate__wrapper {
+  flex-basis: calc(100% - calc(90 / 16 * 1rem));
+
+  @media (--md-n-above) {
+    display: var(--flex);
+    flex-basis: unset;
+  }
+}
+
+.app-skeleton__username-name {
+  flex-basis: unset;
+
+  @media (--md-n-above) {
+    flex-basis: 65%;
+  }
 }
 
 .app-skeleton-profile-section__bio {
@@ -798,9 +814,8 @@ p[aria-hidden="false"] {
   display: var(--flex);
   gap: var(--size-4);
 
-
   @media (--md-n-above) {
-    display: unset; 
+    display: unset;
     gap: unset;
   }
 }
@@ -944,7 +959,7 @@ li[class^="user-links__"] {
 
   @media (--md-n-above) {
     & > img {
-      flex-grow: 0;  
+      flex-grow: 0;
       flex-shrink: 0;
       flex-basis: auto;
     }
@@ -955,7 +970,8 @@ li[class^="user-links__"] {
 .fade_not-available,
 .bio-content,
 .location-content,
-.link-content {
+.link-content,
+.company-content {
   color: var(--text-primary);
   font-size: var(--font-size-13);
   line-height: var(--font-lineheight-3);
@@ -965,7 +981,7 @@ li[class^="user-links__"] {
 
 .join-date {
   @media (--md-n-above) {
-    flex-grow: 1;
+    flex-basis: 37%;
   }
 
   @media (--xs-n-below) {
@@ -993,13 +1009,18 @@ li[class^="user-links__"] {
   opacity: 0.75;
 }
 
+.available {
+  opacity: 1;
+}
+
 .app-profile__information-bio {
   margin-block: var(--size-5);
 }
 
 /* Error State -- No result Found and Initial Loaded content */
 .app-no-profile-found,
-.app-search-user-profile {
+.app-search-user-profile,
+.app-no-internet {
   padding-block: var(--size-5);
   padding-inline: var(--size-5);
 
@@ -1010,12 +1031,14 @@ li[class^="user-links__"] {
 }
 
 .app-no-result-found p,
-.app-user-profile-search p {
+.app-user-profile-search p,
+.app-no-network-connection p {
   text-align: center;
 }
 
 .app-no-profile-found__summary,
-.app-user-profile-search__summary {
+.app-user-profile-search__summary,
+.app-no-network-connection__summary {
   font-style: normal;
   font-size: var(--font-size-13);
   line-height: var(--font-lineheight-7);
@@ -1029,7 +1052,8 @@ li[class^="user-links__"] {
 }
 
 .app-no-profile-found__text,
-.app-user-profile-search__text {
+.app-user-profile-search__text,
+.app-no-network-connection__text {
   font-style: normal;
   line-height: var(--font-lineheight-3);
   font-weight: var(--font-weight-4);

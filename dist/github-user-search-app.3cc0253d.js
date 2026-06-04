@@ -177,7 +177,7 @@
 
   // Only insert newRequire.load when it is actually used.
   // The code in this file is linted against ES5, so dynamic import is not allowed.
-  // INSERT_LOAD_HERE
+  function $parcel$resolve(url) {  url = importMap[url] || url;  return import.meta.resolve(distDir + url);}newRequire.resolve = $parcel$resolve;
 
   Object.defineProperty(newRequire, 'root', {
     get: function () {
@@ -718,7 +718,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 class ThemeComponent {
     // Private class fields to store references to the relevant DOM elements and theme values.
     #preferDarkScheme = /** @type {MediaQueryList}*/ globalThis.matchMedia('(prefers-color-scheme: dark)');
-    #btn = /** @type {HTMLButtonElement } */ document.querySelector('.toggle-theme');
+    #themeToggleSelector = /**@type {string} */ '.toggle-theme';
+    #btn = /** @type {HTMLButtonElement } */ document.querySelector(this.#themeToggleSelector);
     #htmlRootElement = /**@type {HTMLElement} */ document.documentElement;
     #darkTheme = /**@type {string} */ 'dark';
     #lightTheme = /**@type {string} */ 'light';
@@ -729,27 +730,40 @@ class ThemeComponent {
     /**
    * Toggle the theme between light and dark mode, and store the users preference in localStorage.
    * @param {Event} evtObj - The click event object passed from the toggle button listener.
+   * @returns {void} - Returns nothing.
    */ #toggleTheme(evtObj) {
-        // evtObj.target is an EventTarget which may not have `closest`.
-        // Narrow to Element before calling `closest` to satisfy type checks.
-        const targetEl = evtObj.target instanceof Element ? evtObj.target.closest('.toggle-theme') : null;
-        // If the click event is not from the toggle button, do nothing.
-        if (!targetEl?.classList.contains('toggle-theme')) return;
-        let theme = this.#htmlRootElement.dataset.theme;
-        if (this.#preferDarkScheme.matches) // If the page has its OS system color theme as "dark"
-        // We want to add the light theme
-        this.#htmlRootElement.dataset.theme = theme === this.#darkTheme ? this.#lightTheme : this.#darkTheme;
-        else // If the page has its OS system color theme as "light"
-        // We want to add the dark theme
-        this.#htmlRootElement.dataset.theme = theme === this.#lightTheme ? this.#darkTheme : this.#lightTheme;
-        const userPrefs = {
-            theme: this.#htmlRootElement.dataset.theme
-        };
-        // Covert the JavaScript object to a JSON-formatted string and store it in localStorage under the key 'devfinder-prefs'.
-        localStorage.setItem(this.#prefsKey, JSON.stringify(userPrefs));
+        const targetEl = this.#getThemeToggleElement(evtObj.target);
+        if (!targetEl) return;
+        const nextTheme = this.#getNextTheme(this.#htmlRootElement.dataset.theme);
+        this.#htmlRootElement.dataset.theme = nextTheme;
+        this.#saveThemePreference(nextTheme);
+    }
+    /**
+   * Find the theme toggle element from the event target.
+   * @param {EventTarget | null} target - The original event target.
+   * @returns {Element | null} - The toggle element, or null when the target is outside the toggle.
+   */ #getThemeToggleElement(target) {
+        if (!(target instanceof Element)) return null;
+        return target.closest(this.#themeToggleSelector);
+    }
+    /**
+   * Get the next theme value based on the current page theme and system preference.
+   * @param {string | undefined} currentTheme - The current theme stored on the root element.
+   * @returns {string} - The next theme to apply.
+   */ #getNextTheme(currentTheme) {
+        if (this.#preferDarkScheme.matches) return currentTheme === this.#darkTheme ? this.#lightTheme : this.#darkTheme;
+        return currentTheme === this.#lightTheme ? this.#darkTheme : this.#lightTheme;
+    }
+    /**
+   * Save the selected theme in localStorage.
+   * @param {string} theme - The selected theme.
+   * @returns {void} - Returns nothing.
+   */ #saveThemePreference(theme) {
+        localStorage.setItem(this.#prefsKey, JSON.stringify({
+            theme
+        }));
     }
 }
-console.log(new ThemeComponent());
 /* Steps and Features to implement */ // 1. When the user clicks search or uses the enter key on the keyboard we want to check and see if the user has entered a value in the search input field. If they have not then we want to display a message saying "Enter GitHub username"
 // Create a component called 'SearchComponent'
 class SearchComponent {
@@ -789,24 +803,45 @@ class SearchComponent {
         this.#ui.render(this.#getSkeletonUI());
         const url = `https://api.github.com/users/${query}`;
         return fetch(url).then(function(response) {
-            if (!response.ok) throw new Error(`No results`);
+            const HTTP_ERROR_NOT_FOUND = 404;
+            if (response.status === HTTP_ERROR_NOT_FOUND) throw new Error(`No results`);
             return response.json();
         }).then((data)=>{
-            console.log(data);
             this.#ui.render(this.#getUserProfileUI(data));
+            // After rendering the users details then we want to animate the users followers, following and repos count from 0 to the actual value.
+            this.#ui.countStats(data.public_repos, data.followers, data.following);
         }).catch((error)=>{
             if (error.message === 'No results') {
                 this.#showErrorMessage(this.#errorMessage, error.message);
                 this.#ui.render(this.#getNoResultsUI());
-            }
+            } else this.#showErrorMessage(this.#errorMessage, 'No connection');
         });
     }
     /**
+   * This method checks if the company value is a URL or not, and returns the appropriate HTML string to be rendered on the UI.
+   * @param {string | null } company - The company value from the GitHub user data, which can be a string or null.
+   * @returns {string} - The HTML string to be rendered for the company information on the user profile.
+   */ #checkIfCompanyIsUrl(company) {
+        if (!company) return `<span class="fade_not-available">Not available</span>`;
+        else if (company.startsWith('@')) {
+            const INDEX_ONE = /**@type {number} */ 1;
+            const companyUsername = company.slice(INDEX_ONE);
+            return `<a href="https://github.com/${companyUsername}" class="link-content" target="_blank" rel="noopener noreferrer"><span>${company}</span></a>`;
+        } else return `<p class="company-content"><span>${company}</span></p>`;
+    }
+    /**
    * This method gets the JavaScript value(an object) produced by parsing the JSON from the HTTP response body
-   * @param {{avatar_url: string, login: string, name: string | null}} data - The produced JavaScript value parsed from the HTTP response body
+   * @param {{public_repos: number, followers: number, following: number, avatar_url: string, bio: string | null, location: string | null, twitter_username: string | null, blog: string | null, created_at: string, login: string, name: string | null, company: string | null}} data - The produced JavaScript value parsed from the HTTP response body
    * @returns {string} -  The HTL structure of the User Profile as a string
    */ #getUserProfileUI(data) {
         const displayName = data.name ?? data.login;
+        const ZERO = /**@type {number} */ 0;
+        const joinedDate = new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            timeZone: 'UTC',
+            year: 'numeric'
+        }).format(new Date(data.created_at));
         const userProfileUI = `
     <!-- User Profile UI -->
       <div class="app-profile">
@@ -826,12 +861,10 @@ class SearchComponent {
               <h1 id="profile-heading" class="sr-only">Profile</h1>
               <!-- name, username, join date -->
               <div class="user-profile">
-                <p class="user-profile__name">
-                  The Octocat
-                </p>
-                <p class="user-profile__username">@octocat</p>
+                ${data.name ? `<p class="user-profile__name">${data.name}</p>` : `<span class="fade_not-available">Name not available</span>`}
+                <p class="user-profile__username">@${data.login}</p>
               </div>
-              <p class="join-date">Joined 25 Jan 2021</p>
+              <p class="join-date">Joined ${joinedDate}</p>
             </section>
           </div>
           <section
@@ -839,7 +872,7 @@ class SearchComponent {
             aria-labelledby="bio-heading"
           >
             <h2 id="bio-heading" class="sr-only">Bio</h2>
-            <span class="fade_not-available">This profile has no bio</span>
+            ${data.bio ? `<p class="bio-content">${data.bio}</p>` : `<span class="fade_not-available">This profile has no bio</span>`}
           </section>
 
           <section
@@ -852,19 +885,19 @@ class SearchComponent {
               <li class="user-stats__repos">
                 <p>
                   <span>Repos</span>
-                  <span>8</span>
+                  <span>${ZERO}</span>
                 </p>
               </li>
               <li class="user-stats__followers">
                 <p>
                   <span>Followers</span>
-                  <span>3938</span>
+                  <span>${ZERO}</span>
                 </p>
               </li>
               <li class="user-stats__following">
                 <p>
                   <span>Following</span>
-                  <span>9</span>
+                  <span>${ZERO}</span>
                 </p>
               </li>
             </ul>
@@ -878,91 +911,88 @@ class SearchComponent {
             <ul class="user-links">
               <li class="user-links__location">
                 <img
-                  class="fade_not-available"
+                  class="${data.location ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="dark"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-location-dark.svg"
+                  src= "${new URL(require("ccd61b436081403e"))}"
                   width="14"
                   height="20"
                 />
                 <img
-                  class="fade_not-available"
+                  class="${data.location ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="light"
                   alt=""
                   aria-hidden="true"
                   width="14"
                   height="20"
-                  src="./assets/images/icon-location-light.svg"
+                  src= "${new URL(require("fcd8816812236609"))}"
                 />
-                <p class="location-content">San Francisco</p>
+                ${data.location ? `<p class="location-content">${data.location}</p>` : `<span class="fade_not-available">Not available</span>`}
               </li>
               <li class="user-links__social-media">
                 <img
-                  class="fade_not-available"
+                  class="${data.twitter_username ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="dark"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-x-dark.svg"
+                  src= "${new URL(require("c17788165455cc79"))}"
                   width="20"
                   height="20"
                 />
                 <img
-                  class="fade_not-available"
+                  class="${data.twitter_username ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="light"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-x-light.svg"
+                  src= "${new URL(require("52bc0b501a90d053"))}"
                   width="20"
                   height="20"
                 />
-                <span class="fade_not-available">Not Available</span>
+                ${data.twitter_username ? `<a href="https://x.com/${data.twitter_username}" class="link-content" target="_blank" rel="noopener noreferrer"><span>@${data.twitter_username}</span></a>` : `<span class="fade_not-available">Not available</span>`}
               </li>
               <li class="user-links__portfolio">
                 <img
-                  class="fade_not-available"
+                  class="${data.blog ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="dark"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-website-dark.svg"
+                  src= "${new URL(require("4d3826476d85d3ad"))}"
                   width="20"
                   height="20"
                 />
                 <img
-                  class="fade_not-available"
+                  class="${data.blog ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="light"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-website-light.svg"
+                  src= "${new URL(require("443922e6e1c50676"))}"
                   width="20"
                   height="20"
                 />
-                <a href="#" class="link-content">
-                  <span> https://github.blog</span>
-                </a>
+                ${data.blog ? `<a href="${data.blog}" class="link-content" target="_blank" rel="noopener noreferrer"><span>${data.blog}</span></a>` : `<span class="fade_not-available">Not available</span>`}
               </li>
               <li class="user-links__company">
                 <img
+                  class="${data.company ? 'available' : 'fade_not-available'}"
                   class="fade_not-available"
                   data-link-icon-theme="dark"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-company-dark.svg"
+                  src= "${new URL(require("1933881ee8c44520"))}"
                   width="20"
                   height="20"
                 />
                 <img
-                  class="fade_not-available"
+                  class="${data.company ? 'available' : 'fade_not-available'}"
                   data-link-icon-theme="light"
                   alt=""
                   aria-hidden="true"
-                  src="./assets/images/icon-company-light.svg"
+                  src= "${new URL(require("98d452f3902dc014"))}"
                   width="20"
                   height="20"
                 />
-                <a href="#" class="link-content">
-                  <span>@github</span>
-                </a>
+                ${this.#checkIfCompanyIsUrl(data.company)}
               </li>
             </ul>
           </section>
@@ -1003,20 +1033,26 @@ class SearchComponent {
         const skeletonUI = `
     <!-- The Skeleton Loader UI -->
       <div class="app-skeleton-body">
-        <div class="app-skeleton animate shimmer app-skeleton-avatar"></div>
         <div class="app-skeleton-profile-section">
           <div class="app-skeleton-profile-section__user-profile">
-            <div class="app-skeleton_wrapper-username-name">
+            <div class ="app-skeleton-avatar">
               <div
-                class="app-skeleton animate shimmer app-skeleton-line__name w-name"
-              ></div>
-              <div
-                class="app-skeleton animate shimmer app-skeleton-line w-username"
+                class="app-skeleton animate shimmer"
               ></div>
             </div>
-            <div
-              class="app-skeleton animate shimmer app-skeleton-line w-joindate"
-            ></div>
+            <div class="app-skeleton_username-name-joindate__wrapper">
+              <div class="app-skeleton__username-name">
+                <div
+                  class="app-skeleton animate shimmer app-skeleton-line__name w-name"
+                ></div>
+                <div
+                  class="app-skeleton animate shimmer app-skeleton-line w-username"
+                ></div>
+              </div>
+              <div
+                class="app-skeleton animate shimmer app-skeleton-line w-joindate"
+              ></div>
+            </div>
           </div>
           <div class="app-skeleton-profile-section__bio">
             <div class="app-skeleton animate shimmer app-skeleton-line"></div>
@@ -1066,20 +1102,92 @@ class SearchComponent {
     }
 }
 class UIComponent {
-    #app = /**@type {HTMLElement} */ document.querySelector('.app');
+    app = /**@type {HTMLElement} */ document.querySelector('.app');
     /**
    * The constructor function simply clear the current UI and then updates it will render a new UI and needed on demand.
    * @param {string} renderedUI - The HTMLElement structure to be rendered
    */ render(renderedUI) {
         this.#clearUI();
-        this.#app.innerHTML = renderedUI;
+        this.app.innerHTML = renderedUI;
+    }
+    /**
+   * The method is used to count the followers, following and repos count from 0 to the actual value after the users details have been rendered on the UI.
+   * @param {number} currentRepoStat - The current repos count value to be animated to on the UI
+   * @param {number} currentFollowersStat - The current followers value to be animated to on the UI
+   * @param {number} currentFollowingStat - The current following value to be animated to on the UI
+   * @returns {void}
+   */ countStats(currentRepoStat, currentFollowersStat, currentFollowingStat) {
+        const interval = /**@type {number} */ 4000; // 4seconds
+        const UPDATE_HOURS_BY = /**@type {number} */ 1;
+        const loadedUserStats = /**@type {number[]} */ [
+            currentRepoStat,
+            currentFollowersStat,
+            currentFollowingStat
+        ];
+        const statsElements = /** @type {NodeList} */ this.app.querySelectorAll('li[class^="user-stats__"] > p > span:last-child');
+        const arrayOfStatsElements = Array.from(statsElements);
+        arrayOfStatsElements.forEach((statElement, statElementIndex)=>{
+            // Hold to we will for sure come back to this);
+            let startStat = 0;
+            const endStat = loadedUserStats[statElementIndex];
+            const duration = Math.floor(interval / endStat);
+            console.log(startStat, interval, UPDATE_HOURS_BY, endStat);
+            const counter = setInterval(()=>{
+                startStat += UPDATE_HOURS_BY;
+                statElement.textContent = `${startStat}`;
+                if (startStat === endStat) clearInterval(counter);
+                if (startStat > endStat) {
+                    startStat -= UPDATE_HOURS_BY;
+                    if (startStat === endStat) {
+                        statElement.textContent = `${startStat}`;
+                        clearInterval(counter);
+                    }
+                }
+            }, duration);
+        });
     }
     #clearUI() {
-        this.#app.innerHTML = ``;
+        this.app.innerHTML = ``;
     }
 }
-console.log(new SearchComponent(new UIComponent()));
+/**
+ * This function initializes the entire devfinder application
+ * @param {ThemeComponent} themeComponent - The theme component instantiation
+ * @param {SearchComponent} searchComponent - The search component instantiation
+ * @returns {Array<ThemeComponent|SearchComponent>}  - The array of Components
+ */ function devfinderOnIt(themeComponent, searchComponent) {
+    const arrayOfComponents = [
+        themeComponent,
+        searchComponent
+    ];
+    return arrayOfComponents;
+}
+devfinderOnIt(new ThemeComponent(), new SearchComponent(new UIComponent()));
 
-},{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {})
+},{"ccd61b436081403e":"84w89","fcd8816812236609":"iNwQ7","c17788165455cc79":"eBHMO","52bc0b501a90d053":"lyk4S","4d3826476d85d3ad":"aWJA2","443922e6e1c50676":"dWDzq","1933881ee8c44520":"c52YT","98d452f3902dc014":"8nYaU"}],"84w89":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-location-dark.2f81633f.svg") + "?" + Date.now();
+
+},{}],"iNwQ7":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-location-light.acad493b.svg") + "?" + Date.now();
+
+},{}],"eBHMO":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-x-dark.446b3eca.svg") + "?" + Date.now();
+
+},{}],"lyk4S":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-x-light.f26d515d.svg") + "?" + Date.now();
+
+},{}],"aWJA2":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-website-dark.035b6591.svg") + "?" + Date.now();
+
+},{}],"dWDzq":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-website-light.4dec2696.svg") + "?" + Date.now();
+
+},{}],"c52YT":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-company-dark.ebe95dbf.svg") + "?" + Date.now();
+
+},{}],"8nYaU":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icon-company-light.d2a66f83.svg") + "?" + Date.now();
+
+},{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {}, "./", "/")
 
 //# sourceMappingURL=github-user-search-app.3cc0253d.js.map

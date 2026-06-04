@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" dir="ltr" data-theme="light"><head>
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="light"><head><script type="importmap">{"imports":{"05Kmu":"/icon-x-light.f26d515d.svg","2tZUL":"/icon-company-light.d2a66f83.svg","3E8GS":"/icon-company-dark.ebe95dbf.svg","4EFaq":"/icon-location-light.acad493b.svg","bXW05":"/icon-website-light.4dec2696.svg","ck4d0":"/icon-website-dark.035b6591.svg","gotdv":"/icon-x-dark.446b3eca.svg","kqnYr":"/icon-location-dark.2f81633f.svg"}}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Search for Developers on GitHub">
@@ -60,30 +60,35 @@
       </nav>
     </header>
     <main class="app">
-      <!-- The Skeleton Loader UI -->
-      <div class="app-skeleton-body">
-        <div class="app-skeleton animate shimmer app-skeleton-avatar"></div>
-        <div class="app-skeleton-profile-section">
-          <div class="app-skeleton-profile-section__user-profile">
-            <div class="app-skeleton_wrapper-username-name">
-              <div class="app-skeleton animate shimmer app-skeleton-line__name w-name"></div>
-              <div class="app-skeleton animate shimmer app-skeleton-line w-username"></div>
-            </div>
-            <div class="app-skeleton animate shimmer app-skeleton-line w-joindate"></div>
-          </div>
-          <div class="app-skeleton-profile-section__bio">
-            <div class="app-skeleton animate shimmer app-skeleton-line"></div>
-          </div>
-          <div class="app-skeleton-profile-section__stats">
-            <div class="app-skeleton animate shimmer app-skeleton-line__stats"></div>
-          </div>
-          <div class="app-skeleton-profile-section__links">
-            <div class="app-skeleton animate shimmer app-skeleton-line w-link"></div>
-            <div class="app-skeleton animate shimmer app-skeleton-line w-link"></div>
-            <div class="app-skeleton animate shimmer app-skeleton-line w-link"></div>
-            <div class="app-skeleton animate shimmer app-skeleton-line w-link"></div>
-          </div>
-        </div>
+      <!--The HTML structure of app when the page loads -->
+      <div class="app-search-user-profile">
+        <section class="app-user-profile-search" aria-labelledby="search-github-profile">
+          <h1 class="sr-only" id="search-github-profile">
+            Search for GitHub Profile
+          </h1>
+          <img src="/dark-search.9dad4e03.png" aria-hidden="true" width="200" height="200" alt="" data-image-search-user-theme="dark">
+          <img src="/light-search.c84168db.png" alt="" aria-hidden="true" width="200" height="200" data-image-search-user-theme="light">
+          <p class="app-user-profile-search__summary">
+            Search for a GitHub user
+          </p>
+          <p class="app-user-profile-search__text">
+            Enter a GitHub username in the search field above and press Enter or
+            click Search to view their profile.
+          </p>
+        </section>
+      </div>
+
+      <!--The HTML structure of app the user has no internet connection -->
+      <div class="app-no-internet">
+        <section class="app-no-network-connection" aria-labelledby="no-network">
+          <h1 id="no-network" class="sr-only">
+            Looks like you have lost connection
+          </h1>
+          <p class="app-no-network-connection__summary">No connection!</p>
+          <p class="app-no-network-connection__text">
+            Please check and try it again!
+          </p>
+        </section>
       </div>
     </main>
   
