@@ -207,11 +207,11 @@
       });
     }
   }
-})({"8m8ip":[function(require,module,exports,__globalThis) {
+})({"1zwWd":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 1234;
+var HMR_SERVER_PORT = 50362;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -814,7 +814,10 @@ class SearchComponent {
             if (error.message === 'No results') {
                 this.#showErrorMessage(this.#errorMessage, error.message);
                 this.#ui.render(this.#getNoResultsUI());
-            } else this.#showErrorMessage(this.#errorMessage, 'No connection');
+            } else {
+                this.#showErrorMessage(this.#errorMessage, 'No connection');
+                this.#ui.render(this.#getNoInternetConnection());
+            }
         });
     }
     /**
@@ -1025,6 +1028,26 @@ class SearchComponent {
     `;
         return noResultsUI;
     }
+    /**
+   * The method simply returns the No Internet connection stored in a variable
+   * @returns {string} - The HTMl structure of the No Internet connection as a string.
+   */ #getNoInternetConnection() {
+        const noInternetConnection = `
+    <!--The HTML structure of app the user has no internet connection -->
+      <div class="app-no-internet">
+        <section class="app-no-network-connection" aria-labelledby="no-network">
+          <h1 id="no-network" class="sr-only">
+            Looks like you have lost connection
+          </h1>
+          <p class="app-no-network-connection__summary">No connection!</p>
+          <p class="app-no-network-connection__text">
+            Please check and try it again!
+          </p>
+        </section>
+      </div>
+    `;
+        return noInternetConnection;
+    }
     // UI for the loaded content from the value of the fulfilled promise
     /**
    * This method simply returns the skeleton UI stored in the variable
@@ -1131,7 +1154,6 @@ class UIComponent {
             let startStat = 0;
             const endStat = loadedUserStats[statElementIndex];
             const duration = Math.floor(interval / endStat);
-            console.log(startStat, interval, UPDATE_HOURS_BY, endStat);
             const counter = setInterval(()=>{
                 startStat += UPDATE_HOURS_BY;
                 statElement.textContent = `${startStat}`;
@@ -1188,6 +1210,6 @@ module.exports = module.bundle.resolve("icon-company-dark.ebe95dbf.svg") + "?" +
 },{}],"8nYaU":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icon-company-light.d2a66f83.svg") + "?" + Date.now();
 
-},{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {}, "./", "/")
+},{}]},["1zwWd","ktMgX"], "ktMgX", "parcelRequire2f59", {}, "./", "/")
 
 //# sourceMappingURL=github-user-search-app.3cc0253d.js.map
