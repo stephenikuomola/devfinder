@@ -278,6 +278,8 @@ a:not([class]) {
   /* eslint-enable css/no-important */
 }
 
+/* I keep getting an warning message from my Vscode IDE because I make use of @custom-media */
+
 @custom-media --mouse (hover) and (pointer: fine);
 @custom-media --md-n-above (width >= 768px);
 @custom-media --xs-n-below (width < 360px);
@@ -397,30 +399,6 @@ a:not([class]) {
   --no-results-found-summary: var(--neutral-0);
   --no-results-found-text: var(--neutral-200);
   --input-text: var(--neutral-0);
-}
-
-/* The Loader Styles */
-div[class~="loader"] {
-  position: fixed;
-  inset: 0;
-  display: var(--flex);
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  /* eslint css/no-invalid-properties: ["error", { allowUnknownVariables: true }] */
-  z-index: var(--layer-5);
-}
-
-div[class~="loader"][data-fade~="true"] {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-div[class~="loader"][data-fade~="false"] {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
 }
 
 /* The Header Styles */

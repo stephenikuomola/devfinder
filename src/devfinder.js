@@ -144,7 +144,7 @@ class SearchComponent {
           this.#ui.render(this.#getNoResultsUI());
         } else {
           this.#showErrorMessage(this.#errorMessage, 'No connection');
-          // TODO Load something on the UI related to this
+          this.#ui.render(this.#getNoInternetConnection());
         }
       });
   }
@@ -368,6 +368,28 @@ class SearchComponent {
     return noResultsUI;
   }
 
+  /**
+   * The method simply returns the No Internet connection stored in a variable
+   * @returns {string} - The HTMl structure of the No Internet connection as a string.
+   */
+  #getNoInternetConnection() {
+    const noInternetConnection = `
+    <!--The HTML structure of app the user has no internet connection -->
+      <div class="app-no-internet">
+        <section class="app-no-network-connection" aria-labelledby="no-network">
+          <h1 id="no-network" class="sr-only">
+            Looks like you have lost connection
+          </h1>
+          <p class="app-no-network-connection__summary">No connection!</p>
+          <p class="app-no-network-connection__text">
+            Please check and try it again!
+          </p>
+        </section>
+      </div>
+    `;
+    return noInternetConnection;
+  }
+
   // UI for the loaded content from the value of the fulfilled promise
 
   /**
@@ -491,7 +513,6 @@ class UIComponent {
       let startStat = 0;
       const endStat = loadedUserStats[statElementIndex];
       const duration = Math.floor(interval / endStat);
-      console.log(startStat, interval, UPDATE_HOURS_BY, endStat);
 
       const counter = setInterval(() => {
         startStat += UPDATE_HOURS_BY;
