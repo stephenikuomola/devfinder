@@ -207,11 +207,11 @@
       });
     }
   }
-})({"1zwWd":[function(require,module,exports,__globalThis) {
+})({"8m8ip":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 50362;
+var HMR_SERVER_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -864,7 +864,7 @@ class SearchComponent {
               <h1 id="profile-heading" class="sr-only">Profile</h1>
               <!-- name, username, join date -->
               <div class="user-profile">
-                ${data.name ? `<p class="user-profile__name">${data.name}</p>` : `<span class="fade_not-available">Name not available</span>`}
+              <p class="user-profile__name">${displayName}</p>
                 <p class="user-profile__username">@${data.login}</p>
               </div>
               <p class="join-date">Joined ${joinedDate}</p>
@@ -1210,6 +1210,6 @@ module.exports = module.bundle.resolve("icon-company-dark.ebe95dbf.svg") + "?" +
 },{}],"8nYaU":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icon-company-light.d2a66f83.svg") + "?" + Date.now();
 
-},{}]},["1zwWd","ktMgX"], "ktMgX", "parcelRequire2f59", {}, "./", "/")
+},{}]},["8m8ip","ktMgX"], "ktMgX", "parcelRequire2f59", {}, "./", "/")
 
 //# sourceMappingURL=github-user-search-app.3cc0253d.js.map

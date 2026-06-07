@@ -201,7 +201,7 @@ class SearchComponent {
               <h1 id="profile-heading" class="sr-only">Profile</h1>
               <!-- name, username, join date -->
               <div class="user-profile">
-                ${data.name ? `<p class="user-profile__name">${data.name}</p>` : `<span class="fade_not-available">Name not available</span>`}
+              <p class="user-profile__name">${displayName}</p>
                 <p class="user-profile__username">@${data.login}</p>
               </div>
               <p class="join-date">Joined ${joinedDate}</p>
