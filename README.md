@@ -1,7 +1,7 @@
 <div align="center">
 	<img src="./assets/favicons/apple-touch-icon.png" />
 	<h2 align="center">Devfinder</h2> A GitHub User Search application <br />
-		<a href="https://github_devfinder.netlify.app/"
+		<a href="https://app-githubdevfinder.netlify.app/"
 		><strong>➥ Live Demo</strong></a>
 </div>
 
