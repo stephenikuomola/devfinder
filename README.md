@@ -38,4 +38,4 @@ npm install
 npm run start
 ```
 
-If you do wish to reach out, please do so on  [LinkedIn](https://www.linkedin.com/in/stephenikuomola/), [X](https://x.com/stephenikuomola), [Facebook,](https://web.facebook.com/dcstephenikuomola) or [Substack](https://substack.com/@stephenikuomola).
+If you do wish to reach out, please do so on [LinkedIn](https://www.linkedin.com/in/stephenikuomola/), [X](https://x.com/stephenikuomola), [Facebook,](https://web.facebook.com/dcstephenikuomola) or [Substack](https://substack.com/@stephenikuomola).
