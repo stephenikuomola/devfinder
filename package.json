@@ -5,6 +5,7 @@
   "source": "index.html",
   "browserslist": "> 0.3%, last 2 versions, Firefox ESR, not dead",
   "scripts": {
+    "build": "parcel build index.html --dist-dir ./dist",
     "start": "parcel index.html",
     "lint:prettier": "prettier --write .",
     "lint": "npx eslint src/*.js",
