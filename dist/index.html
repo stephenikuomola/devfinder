@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang=en dir=ltr data-theme=light><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><meta name=description content="Search for Developers on GitHub"><meta name=color-scheme content="light dark"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.c06c2786.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.e7f3fa0b.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.b28c81a8.png><link rel=manifest href=/assets/favicons/site.webmanifest><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap" rel=stylesheet><meta property=og:type content=website><meta property=og:url content=https://app-githubdevfinder.netlify.app/><meta property=og:description content="A GitHub User Search App"><meta property=og:title content=Devfinder><meta property=og:site_name content=Devfinder><meta property=og:image content=https://app-githubdevfinder.netlify.app/assets/preview.jpg><meta property=og:image:secure_url content=https://app-githubdevfinder.netlify.app/preview.jpg><meta property=og:image:type content=image/jpeg><meta property=og:image:alt content="A design preview of devfinder"><meta property=og:image:width content=1200><meta property=og:image:height content=628><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@stephenikuomola><meta name=twitter:creator content=@stephenikuomola><meta name=twitter:title content=Devfinder><meta name=twitter:description content="A GitHub User Search App"><meta name=twitter:image content=https://app-githubdevfinder.netlify.app/preview.jpg><script src=/github-user-search-app.e2398c56.js></script><link rel=stylesheet href=/github-user-search-app.d3f012ca.css><script src=/github-user-search-app.3047663e.js type=module></script><title>Devfinder</title><body>
+    <header class=header>
+      <nav class=nagivation>
+        <div class=navigation__header>
+          <a href=https://app-githubdevfinder.netlify.app/ class=navigation__header-logo>devfinder</a>
+          <button class=toggle-theme aria-label="Toggle Theme" type=button>
+            <span class=color-theme data-set-theme=light>LIGHT</span>
+            <span class=color-theme data-set-theme=dark>DARK</span>
+            <img src=/icon-sun.291654bd.svg alt=light class=icon-sun width=20 height=20>
+            <img src=/icon-moon.77d3ef1f.svg alt=dark class=icon-moon width=20 height=20>
+          </button>
+        </div>
+        <search title="Search for GitHub Users" class=navigation__search>
+          <form id=searchForm class=navigation__search-form novalidate>
+            <img src=/icon-search-dark.d0d7618b.svg alt class=search-icon__dark aria-hidden=true width=25 height=24>
+            <img src=/icon-search-light.98b1c1f2.svg alt class=search-icon__light aria-hidden=true width=25 height=24>
+            <label for=username class=sr-only>Search GitHub username</label>
+            <input type=search id=username name=username placeholder="Search GitHub username..." autocomplete=off spellcheck=false required>
+            <button class=navigation__search-button>
+              Search
+            </button>
+          </form>
+          
+          <p id=search-error role=alert aria-live=assertive aria-hidden=true></p>
+        </search>
+      </nav>
+    </header>
+    <main class=app>
+      
+      <div class=app-search-user-profile>
+        <section class=app-user-profile-search aria-labelledby=search-github-profile>
+          <h1 class=sr-only id=search-github-profile>
+            Search for GitHub Profile
+          </h1>
+          <img src=/dark-search.2bc4f6d6.png fetchpriority=high aria-hidden=true width=350 height=350 alt data-image-search-user-theme=dark>
+          <img src=/light-search.82f12e49.png fetchpriority=high alt aria-hidden=true width=350 height=350 data-image-search-user-theme=light>
+          <p class=app-user-profile-search__summary>
+            Search for a GitHub user
+          </p>
+          <p class=app-user-profile-search__text>
+            Enter a GitHub username in the search field above and press Enter or
+            click Search to view their profile.
+          </p>
+        </section>
+      </div>
+    </main>
+  
+
