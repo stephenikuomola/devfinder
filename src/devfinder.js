@@ -310,7 +310,7 @@ class SearchComponent {
                   width="20"
                   height="20"
                 />
-                ${data.blog ? `<a href="${data.blog}" class="link-content" target="_blank" rel="noopener noreferrer"><span>${data.blog}</span></a>` : `<span class="fade_not-available">Not available</span>`}
+                ${data.blog ? `<a href="https://${data.blog}" class="link-content" target="_blank" rel="noopener noreferrer"><span>${data.blog}</span></a>` : `<span class="fade_not-available">Not available</span>`}
               </li>
               <li class="user-links__company">
                 <img
