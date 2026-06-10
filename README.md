@@ -7,7 +7,7 @@
 
 <br />
 
-![Desktop Preview](./assets/design/preview.jpg)
+![Desktop Preview](./preview.jpg)
 
 Desktop Preview
 
