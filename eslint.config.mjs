@@ -51,16 +51,13 @@ export default defineConfig([
     files: ['**/*.css'],
     language: 'css/css',
     languageOptions: {
-      // @ts-ignore
-      customSyntax: (defaultSyntax) => ({
-        ...defaultSyntax,
-        atRules: {
-          ...defaultSyntax.atRules,
+      customSyntax: {
+        atrules: {
           'custom-media': {
-            prelude: '<media-query-list>' // what comes after the name
+            prelude: '<media-query-list>'
           }
         }
-      })
+      }
     },
     plugins: { css },
     rules: {
